@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://jurclf7d20g1"]
+
+[ext_resource type="Texture2D" uid="uid://d1jr65sw6tyrj" path="res://assets/Tiles/tile_0078.png" id="1_aj0ge"]
+[ext_resource type="Script" path="res://entities/characters/fox.gd" id="1_votrn"]
+[ext_resource type="PackedScene" uid="uid://0met6vpi0caw" path="res://entities/components/sense_area.tscn" id="2_rjbsa"]
+
+[node name="Fox" type="CharacterBody2D"]
+script = ExtResource("1_votrn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 3
+texture = ExtResource("1_aj0ge")
+
+[node name="VisionArea" parent="." instance=ExtResource("2_rjbsa")]
+
+[node name="HearingArea" parent="." instance=ExtResource("2_rjbsa")]

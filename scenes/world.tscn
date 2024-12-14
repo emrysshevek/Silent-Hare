@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://38iu61crugdj"]
+[gd_scene load_steps=7 format=3 uid="uid://38iu61crugdj"]
 
 [ext_resource type="Texture2D" uid="uid://dccjuacij4b17" path="res://assets/Tilemap/tilemap.png" id="1_675oo"]
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_vfwjc"]
 [ext_resource type="PackedScene" uid="uid://di8x3matt2snd" path="res://entities/items/food.tscn" id="2_sr6hq"]
 [ext_resource type="PackedScene" uid="uid://bq1d1lyxsd14k" path="res://entities/characters/player.tscn" id="4_dth15"]
-[ext_resource type="PackedScene" uid="uid://jurclf7d20g1" path="res://entities/characters/fox.tscn" id="5_vuqr6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0sip7"]
 texture = ExtResource("1_675oo")
@@ -158,6 +157,3 @@ tile_set = SubResource("TileSet_vwe0b")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("4_dth15")]
-
-[node name="Fox" parent="." instance=ExtResource("5_vuqr6")]
-position = Vector2(44, -1)

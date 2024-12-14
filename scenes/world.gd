@@ -5,8 +5,6 @@ extends Node2D
 @export var dimensions : Vector2i
 @export var food_scene : PackedScene
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for i in range(-dimensions.x / 2, dimensions.x / 2):

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://di8x3matt2snd"]
+
+[ext_resource type="Texture2D" uid="uid://bgfgidevl6dob" path="res://assets/Tiles/tile_0031.png" id="1_p3ovl"]
+
+[node name="Food" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 3
+texture = ExtResource("1_p3ovl")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5r7cpgp1mtmj"]
+
+[ext_resource type="Script" path="res://components/sense/sensable_area.gd" id="1_dgy6c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c6nax"]
+
+[node name="SensableArea" type="Area2D"]
+script = ExtResource("1_dgy6c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c6nax")

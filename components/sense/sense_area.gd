@@ -1,8 +1,8 @@
 class_name SenseArea
 extends Area2D
 
-signal animal_entered_sense_range(which_animal : Animal)
-signal animal_exited_sense_range(which_animal : Animal)
+signal animal_entered_sense_range(which_sense : SenseArea, which_animal : Animal)
+signal animal_exited_sense_range(which_sense: SenseArea, which_animal : Animal)
 
 @onready var collision : CollisionShape2D = get_node("CollisionShape2D")
 
@@ -16,10 +16,10 @@ func get_radius() -> float:
 	
 func _on_area_entered(area:Area2D) -> void:
 	if area.get_parent() is Animal:
-		animal_entered_sense_range.emit(area.get_parent())
+		animal_entered_sense_range.emit(self, area.get_parent())
 
 
 func _on_area_exited(area:Area2D) -> void:		
 	if area.get_parent() is Animal:
-		animal_exited_sense_range.emit(area.get_parent())
+		animal_exited_sense_range.emit(self, area.get_parent())
 

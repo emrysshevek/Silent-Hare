@@ -8,9 +8,10 @@
 size = Vector2(16, 16)
 
 [node name="Fox" type="CharacterBody2D"]
+collision_layer = 68
 script = ExtResource("1_votrn")
-vision_range = 64.0
-hearing_range = 0.0
+vision_range = 32.0
+hearing_range = 32.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_smwkv")

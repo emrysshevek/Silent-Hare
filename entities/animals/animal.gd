@@ -15,6 +15,8 @@ signal animal_exited_hearing(which_animal : Animal)
 @onready var vision : SenseArea = get_node_or_null("VisionRange")
 @onready var hearing : SenseArea = get_node_or_null("HearingRange")
 
+var home: Habitat
+
 func _ready() -> void:
 	if vision:
 		vision.set_radius(vision_range)
@@ -33,3 +35,6 @@ func on_animal_exited_range(sense: SenseArea, animal: Animal) -> void:
 		animal_exited_vision.emit(animal)
 	elif sense == hearing:
 		animal_exited_hearing.emit(animal)
+
+func on_exited_habitat_range(habitat: Habitat, type: Habitat.HabitatRangeType) -> void:
+	pass

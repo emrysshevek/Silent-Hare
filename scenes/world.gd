@@ -34,8 +34,8 @@ func try_spawn_food(x: int, y: int) -> void:
 
 func spawn_habitats() -> void:
 	var step_size: Vector2i = dimensions * habitat_frequency
-	for i in range(-dimensions.x / 2, dimensions.x / 2 - step_size.x, step_size.x):
-		for j in range(-dimensions.y / 2, dimensions.y / 2 - step_size.y, step_size.y):
+	for i in range(-dimensions.x / 2, dimensions.x / 2, step_size.x):
+		for j in range(-dimensions.y / 2, dimensions.y / 2, step_size.y):
 			var pos = Vector2i(i + randi_range(0, step_size.x), j + randi_range(0, step_size.y))
 			var den = fox_den_scene.instantiate() as Node2D
 			add_child(den)

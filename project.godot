@@ -54,6 +54,7 @@ down={
 2d_physics/layer_4="item"
 2d_physics/layer_5="hearable"
 2d_physics/layer_6="visible"
+2d_physics/layer_7="animal"
 
 [rendering]
 

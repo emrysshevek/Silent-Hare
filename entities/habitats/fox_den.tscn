@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dqxf1v4fo1fpg"]
 
 [ext_resource type="Texture2D" uid="uid://elndcqqnc7li" path="res://assets/Tiles/tile_0047.png" id="1_ggl7a"]
-[ext_resource type="PackedScene" uid="uid://jurclf7d20g1" path="res://entities/animals/predators/fox.tscn" id="2_2sof3"]
+[ext_resource type="PackedScene" uid="uid://jurclf7d20g1" path="res://entities/animals/predators/fox/fox.tscn" id="2_2sof3"]
 [ext_resource type="PackedScene" uid="uid://dd0fxi6mdenif" path="res://components/utlity/spawner.tscn" id="2_cfhd7"]
 [ext_resource type="PackedScene" uid="uid://dac1dmrvkp1sh" path="res://entities/habitats/habitat_component.tscn" id="2_qrxad"]
 
@@ -14,7 +14,7 @@ wander_range = 128.0
 chase_range = 256.0
 
 [node name="Spawner" parent="." instance=ExtResource("2_cfhd7")]
-spawn_count_max = 4
+spawn_count_max = 2
 scene = ExtResource("2_2sof3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

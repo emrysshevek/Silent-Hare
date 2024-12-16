@@ -32,10 +32,13 @@ func _ready() -> void:
 
 func _on_spawner_spawned(animal: Animal) -> void:
 	inhabitants.append(animal)
+	animal.home = self
 
 
 func _on_base_area_body_entered(body:Node2D) -> void:
-	pass
+	var animal := body as Animal
+	if animal and animal in inhabitants:
+		animal.on_entered_habitat_range(self, HabitatRangeType.BASE)
 
 func _on_base_area_body_exited(body:Node2D) -> void:
 	var animal := body as Animal
@@ -43,7 +46,9 @@ func _on_base_area_body_exited(body:Node2D) -> void:
 		animal.on_exited_habitat_range(self, HabitatRangeType.BASE)
 
 func _on_wander_area_body_entered(body:Node2D) -> void:
-	pass # Replace with function body.
+	var animal := body as Animal
+	if animal and animal in inhabitants:
+		animal.on_entered_habitat_range(self, HabitatRangeType.WANDER)
 
 
 func _on_wander_area_body_exited(body:Node2D) -> void:
@@ -52,7 +57,9 @@ func _on_wander_area_body_exited(body:Node2D) -> void:
 		animal.on_exited_habitat_range(self, HabitatRangeType.WANDER)
 
 func _on_chase_area_body_entered(body:Node2D) -> void:
-	pass # Replace with function body.
+	var animal := body as Animal
+	if animal and animal in inhabitants:
+		animal.on_entered_habitat_range(self, HabitatRangeType.CHASE)
 
 
 func _on_chase_area_body_exited(body:Node2D) -> void:

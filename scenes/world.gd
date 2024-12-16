@@ -6,6 +6,7 @@ extends Node2D
 @export var food_scene : PackedScene
 @export var fox_den_scene : PackedScene
 @export var habitat_frequency: float = .1
+@export var habitat_jitter: int = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,12 +35,19 @@ func try_spawn_food(x: int, y: int) -> void:
 
 func spawn_habitats() -> void:
 	var step_size: Vector2i = dimensions * habitat_frequency
-	for i in range(-dimensions.x / 2, dimensions.x / 2, step_size.x):
-		for j in range(-dimensions.y / 2, dimensions.y / 2, step_size.y):
-			var pos = Vector2i(i + randi_range(0, step_size.x), j + randi_range(0, step_size.y))
-			var den = fox_den_scene.instantiate() as Node2D
-			add_child(den)
-			den.position = ground_layer.map_to_local(pos)
+	for i in range(-dimensions.x / 2, dimensions.x / 2 - step_size.x, step_size.x):
+		for j in range(-dimensions.y / 2, dimensions.y / 2 - step_size.y, step_size.y):
+			# var pos = ground_layer.map_to_local(Vector2i(i + randi_range(0, step_size.x), j + randi_range(0, step_size.y)))
+			var pos = (step_size / 2) + Vector2i(i, j)
+			var offset = Vector2(randi_range(-habitat_jitter , habitat_jitter), randi_range(-habitat_jitter , habitat_jitter))
+			pos = ground_layer.map_to_local(pos) + offset
+			
+			if pos.distance_to(Vector2i.ZERO) > 128:
+				var den = fox_den_scene.instantiate() as Node2D
+				add_child(den)
+				den.position = pos
+
+
 
 
 

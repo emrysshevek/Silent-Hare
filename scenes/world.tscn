@@ -167,7 +167,8 @@ ground_layer = NodePath("GroundLayer")
 dimensions = Vector2i(100, 100)
 food_scene = ExtResource("2_sr6hq")
 fox_den_scene = ExtResource("3_p5eve")
-habitat_frequency = 0.415
+habitat_frequency = 0.3
+habitat_jitter = 165
 
 [node name="GroundLayer" type="TileMapLayer" parent="."]
 texture_filter = 3

@@ -14,7 +14,9 @@ wander_range = 128.0
 chase_range = 256.0
 
 [node name="Spawner" parent="." instance=ExtResource("2_cfhd7")]
+spawn_count_min = 1
 spawn_count_max = 2
+spawn_delay = 0.0
 scene = ExtResource("2_2sof3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

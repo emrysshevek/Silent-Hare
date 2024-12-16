@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entities/animals/player.gd" id="1_nqeti"]
 [ext_resource type="Texture2D" uid="uid://dmnthqxhxuiry" path="res://assets/Tiles/tile_0082.png" id="2_dmiv0"]
-[ext_resource type="PackedScene" uid="uid://0met6vpi0caw" path="res://components/sense/sense_area.tscn" id="3_jiqeb"]
+[ext_resource type="PackedScene" uid="uid://c5r7cpgp1mtmj" path="res://components/sense/sensable_area.tscn" id="3_fy3l2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jq2l8"]
 size = Vector2(16, 16)
@@ -25,6 +25,12 @@ collision_mask = 8
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CollectionArea"]
 shape = SubResource("RectangleShape2D_jq2l8")
 
-[node name="SenseArea" parent="." instance=ExtResource("3_jiqeb")]
+[node name="VisibleArea" parent="." instance=ExtResource("3_fy3l2")]
+collision_layer = 32
+collision_mask = 128
+
+[node name="HearableArea" parent="." instance=ExtResource("3_fy3l2")]
+collision_layer = 16
+collision_mask = 256
 
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_area_2d_area_entered"]

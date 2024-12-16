@@ -4,8 +4,5 @@
 
 [node name="Spawner" type="Node2D"]
 script = ExtResource("1_osnoh")
-spawn_count_min = null
-spawn_count_max = null
-spawn_delay = null
 
 [node name="DelayTimer" type="Timer" parent="."]

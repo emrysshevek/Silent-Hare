@@ -17,6 +17,7 @@ signal animal_exited_hearing(which_animal : Animal)
 
 var animal_in_vision := false
 var animal_in_hearing := false
+
 var in_base_area := false
 var in_wander_area := false
 var in_chase_area := false
@@ -38,32 +39,10 @@ var wait_time := .5
 var target : Vector2 = Vector2.INF
 
 func _physics_process(delta: float) -> void:
-
-	# if state == IDLE:
-	# 	_process_idle_state(delta)
-
 	move_and_slide()
 
-
-func _process_idle_state(delta: float) -> void:
-	wait_time -= delta
-
-	if wait_time > 0:
-		velocity = Vector2.ZERO 
-		return
-	
-	if global_position.distance_to(target) < 1:
-		target = Vector2.INF
-		wait_time = randf_range(.5, 1)
-		return
-
-	if target == Vector2.INF:
-		target = global_position + Vector2(randf_range(-48, 48), randf_range(-48, 48))
-		
-	var dir := global_position.direction_to(target)
-	velocity = dir * speed
-
 func on_animal_entered_range(sense: SenseArea, animal: Animal) -> void:
+	print("animal entered range")
 	if sense == vision:
 		animal_in_vision = true
 		animal_entered_vision.emit(animal)
@@ -72,6 +51,7 @@ func on_animal_entered_range(sense: SenseArea, animal: Animal) -> void:
 		animal_entered_hearing.emit(animal)
 
 func on_animal_exited_range(sense: SenseArea, animal: Animal) -> void:
+	print("animal exited range")
 	if sense == vision:
 		animal_in_vision = false
 		animal_exited_vision.emit(animal)
@@ -82,6 +62,7 @@ func on_animal_exited_range(sense: SenseArea, animal: Animal) -> void:
 func on_exited_habitat_range(habitat: Habitat, type: Habitat.HabitatRangeType) -> void:
 	if habitat != home:
 		return
+	# print("exited habitat")
 
 	if type == Habitat.HabitatRangeType.BASE:
 		in_base_area = false
@@ -93,6 +74,7 @@ func on_exited_habitat_range(habitat: Habitat, type: Habitat.HabitatRangeType) -
 func on_entered_habitat_range(habitat: Habitat, type: Habitat.HabitatRangeType) -> void:
 	if habitat != home:
 		return
+	# print("entered habitat")
 
 	if type == Habitat.HabitatRangeType.BASE:
 		in_base_area = true

@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bq1d1lyxsd14k"]
 
 [ext_resource type="Script" path="res://entities/animals/player.gd" id="1_nqeti"]
-[ext_resource type="Texture2D" uid="uid://dmnthqxhxuiry" path="res://assets/Tiles/tile_0082.png" id="2_dmiv0"]
+[ext_resource type="Texture2D" uid="uid://dmnthqxhxuiry" path="res://assets/Placeholder/Tiles/tile_0082.png" id="2_dmiv0"]
 [ext_resource type="PackedScene" uid="uid://0met6vpi0caw" path="res://components/sense/sense_area.tscn" id="3_jiqeb"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jq2l8"]
 size = Vector2(16, 16)

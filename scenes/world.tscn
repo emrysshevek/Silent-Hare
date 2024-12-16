@@ -162,12 +162,12 @@ shader_parameter/slant = 4.75e-08
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("ground_layer")]
 script = ExtResource("1_vfwjc")
+ground_layer = NodePath("GroundLayer")
 dimensions = Vector2i(100, 100)
 food_scene = ExtResource("2_sr6hq")
 fox_den_scene = ExtResource("3_p5eve")
 habitat_frequency = 0.3
 habitat_jitter = 165
-ground_layer = NodePath("GroundLayer")
 
 [node name="GroundLayer" type="TileMapLayer" parent="."]
 texture_filter = 3

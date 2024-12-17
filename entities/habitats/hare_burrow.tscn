@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfig25gierdn8"]
+
+[ext_resource type="Texture2D" uid="uid://ulwkdrw14bj5" path="res://assets/environment/burrow.png" id="1_bhrmh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4nkrk"]
+radius = 32.0
+
+[node name="HareBurrow" type="Node2D"]
+texture_filter = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_bhrmh")
+
+[node name="BaseRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseRange"]
+shape = SubResource("CircleShape2D_4nkrk")

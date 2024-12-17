@@ -1,4 +1,5 @@
-extends Animal
+
+class_name Player extends Animal
 
 var food = null
 var what_area = 2 

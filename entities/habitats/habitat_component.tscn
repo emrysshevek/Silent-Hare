@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://dac1dmrvkp1sh"]
+
+[ext_resource type="Script" path="res://entities/habitats/habitat.gd" id="1_voofo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3qv7o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_syoar"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lgebp"]
+
+[node name="HabitatComponent" type="Node2D"]
+script = ExtResource("1_voofo")
+
+[node name="BaseArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseArea"]
+shape = SubResource("CircleShape2D_3qv7o")
+
+[node name="WanderArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WanderArea"]
+shape = SubResource("CircleShape2D_syoar")
+
+[node name="ChaseArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseArea"]
+shape = SubResource("CircleShape2D_lgebp")
+debug_color = Color(0, 0.6, 0.701961, 0.14902)
+
+[node name="DelayTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="BaseArea" to="." method="_on_base_area_body_entered"]
+[connection signal="body_exited" from="BaseArea" to="." method="_on_base_area_body_exited"]
+[connection signal="body_entered" from="WanderArea" to="." method="_on_wander_area_body_entered"]
+[connection signal="body_exited" from="WanderArea" to="." method="_on_wander_area_body_exited"]
+[connection signal="body_entered" from="ChaseArea" to="." method="_on_chase_area_body_entered"]
+[connection signal="body_exited" from="ChaseArea" to="." method="_on_chase_area_body_exited"]
+[connection signal="timeout" from="DelayTimer" to="." method="spawn"]

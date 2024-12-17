@@ -15,6 +15,6 @@ func physics_update(delta: float) -> void:
 	if in_range:
 		target = prey.global_position
 	
-	animal.velocity = animal.global_position.direction_to(target) * animal.speed * 2
+	animal.velocity = animal.global_position.direction_to(target) * animal.run_speed
 	
 	

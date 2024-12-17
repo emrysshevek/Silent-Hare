@@ -59,7 +59,6 @@ zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("4_dth15")]
-speed = 25.0
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")

@@ -8,7 +8,7 @@ class_name HomeState extends PredatorState
 
 func physics_update(_delta: float) -> void:
 	if animal.global_position.distance_to(animal.home.global_position) > 2:
-		animal.velocity = animal.global_position.direction_to(animal.home.global_position) * animal.speed
+		animal.velocity = animal.global_position.direction_to(animal.home.global_position) * animal.walk_speed
 	elif animal.visible:
 		animal.hide()
 		animal.velocity = Vector2.ZERO

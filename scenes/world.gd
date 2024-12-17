@@ -12,7 +12,7 @@ extends Node2D
 func _ready() -> void:
 	for i in range(-dimensions.x / 2, dimensions.x / 2):
 		for j in range(-dimensions.y / 2, dimensions.y / 2):
-			ground_layer.set_cell(Vector2i(i, j), 0, Vector2i(randi_range(0, 5), randi_range(0, 2)))
+			ground_layer.set_cell(Vector2i(i, j), 1 if randf() < .05 else 0, Vector2i.ZERO)
 			try_spawn_food(i, j)
 	spawn_habitats()
 
@@ -26,7 +26,6 @@ func _input(event: InputEvent) -> void:
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				get_node("Camera2D").zoom /= 1.5
 	
-
 func try_spawn_food(x: int, y: int) -> void:
 	if randf() > .95:
 		var food : Node2D = food_scene.instantiate() 

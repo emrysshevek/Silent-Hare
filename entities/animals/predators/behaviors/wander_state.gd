@@ -6,12 +6,19 @@ class_name WanderState extends PredatorState
 var walking = false
 var wait_time = 0
 var target: Vector2
+var prey_in_range: Animal
 
 func enter(prev_state_path: String, data := {}):
     walking = false
     wait_time = 1
+    prey_in_range = null
 
 func physics_update(delta: float) -> void:
+    if animal.prey_in_vision:
+        finished.emit(CHASE, {"prey": animal.prey_in_vision})
+    elif animal.prey_in_hearing:
+        finished.emit(CHASE, {"prey": animal.prey_in_hearing})
+
     wait_time -= delta
     if wait_time <= 0 and not walking:
         if randf() < .15:

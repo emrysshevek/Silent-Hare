@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://dd0fxi6mdenif" path="res://components/utlity/spawner.tscn" id="2_cfhd7"]
 [ext_resource type="PackedScene" uid="uid://dac1dmrvkp1sh" path="res://entities/habitats/habitat_component.tscn" id="2_qrxad"]
 
-
 [node name="FoxDen" type="Node2D"]
 texture_filter = 3
 

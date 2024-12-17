@@ -26,11 +26,11 @@ collision_mask = 8
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CollectionArea"]
 shape = SubResource("RectangleShape2D_jq2l8")
 
-[node name="VisibleArea" parent="." instance=ExtResource("3_fy3l2")]
+[node name="VisibleArea" parent="." instance=ExtResource("3_jiqeb")]
 collision_layer = 32
 collision_mask = 128
 
-[node name="HearableArea" parent="." instance=ExtResource("3_fy3l2")]
+[node name="HearableArea" parent="." instance=ExtResource("3_jiqeb")]
 collision_layer = 16
 collision_mask = 256
 

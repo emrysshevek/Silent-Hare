@@ -1,11 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://38iu61crugdj"]
 
-[ext_resource type="Texture2D" uid="uid://dccjuacij4b17" path="res://assets/Tilemap/tilemap.png" id="1_675oo"]
+[ext_resource type="Texture2D" uid="uid://dccjuacij4b17" path="res://assets/placeholder/Tilemap/tilemap.png" id="1_675oo"]
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_vfwjc"]
 [ext_resource type="PackedScene" uid="uid://di8x3matt2snd" path="res://entities/items/food.tscn" id="2_sr6hq"]
 [ext_resource type="PackedScene" uid="uid://dqxf1v4fo1fpg" path="res://entities/habitats/fox_den.tscn" id="3_p5eve"]
 [ext_resource type="PackedScene" uid="uid://bq1d1lyxsd14k" path="res://entities/animals/player.tscn" id="4_dth15"]
 [ext_resource type="Shader" path="res://scenes/snowfall.gdshader" id="6_bkunl"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0sip7"]
 texture = ExtResource("1_675oo")

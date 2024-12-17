@@ -1,15 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://bq1d1lyxsd14k"]
+[gd_scene load_steps=8 format=3 uid="uid://bq1d1lyxsd14k"]
 
 [ext_resource type="Script" path="res://entities/animals/player.gd" id="1_nqeti"]
 [ext_resource type="Texture2D" uid="uid://dmnthqxhxuiry" path="res://assets/Tiles/tile_0082.png" id="2_dmiv0"]
 [ext_resource type="PackedScene" uid="uid://0met6vpi0caw" path="res://components/sense/sense_area.tscn" id="3_jiqeb"]
+[ext_resource type="Script" path="res://components/thump/thump.gd" id="4_bugl1"]
+[ext_resource type="Texture2D" uid="uid://fclcfbnf4p40" path="res://components/thump/png-clipart-arrow-computer-icons-orange-yellow-angle-orange-thumbnail.png" id="5_mxhvn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jq2l8"]
 size = Vector2(16, 16)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_lwdl6"]
+radius = 58.0345
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 13
+motion_mode = 1
 script = ExtResource("1_nqeti")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -20,12 +26,32 @@ texture_filter = 3
 texture = ExtResource("2_dmiv0")
 
 [node name="CollectionArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 8
+collision_mask = 9
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CollectionArea"]
 shape = SubResource("RectangleShape2D_jq2l8")
 
 [node name="SenseArea" parent="." instance=ExtResource("3_jiqeb")]
 
-[connection signal="area_entered" from="CollectionArea" to="." method="_on_area_2d_area_entered"]
+[node name="thump" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("4_bugl1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="thump"]
+shape = SubResource("CircleShape2D_lwdl6")
+
+[node name="Sprite2D" type="Sprite2D" parent="thump"]
+visible = false
+position = Vector2(0, -17)
+scale = Vector2(0.0646552, 0.0421053)
+texture = ExtResource("5_mxhvn")
+
+[node name="Duration" type="Timer" parent="thump"]
+wait_time = 7.0
+
+[node name="delay" type="Timer" parent="thump"]
+wait_time = 30.0
+
+[connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
+[connection signal="area_exited" from="CollectionArea" to="." method="_on_collection_area_area_exited"]

@@ -10,6 +10,8 @@ size = Vector2(16, 16)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
 script = ExtResource("1_nqeti")
+vision_range = 32.0
+hearing_range = 1024.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jq2l8")
@@ -37,4 +39,13 @@ collision_mask = 256
 volume_db = 2.811
 bus = &"Sounds"
 
+[node name="HearingArea" parent="." instance=ExtResource("3_jiqeb")]
+collision_layer = 256
+collision_mask = 16
+
+[node name="VisionArea" parent="." instance=ExtResource("3_jiqeb")]
+
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_area_2d_area_entered"]
+[connection signal="animal_entered_sense_range" from="HearingArea" to="." method="_on_hearing_area_animal_entered_sense_range"]
+[connection signal="animal_entered_sense_range" from="VisionArea" to="." method="_on_vision_area_animal_entered_sense_range"]
+[connection signal="animal_exited_sense_range" from="VisionArea" to="." method="_on_vision_area_animal_exited_sense_range"]

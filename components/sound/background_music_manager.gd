@@ -28,6 +28,7 @@ var tracks: Array[AudioStream] = [
 
 # crossfades to a new audio stream
 func crossfade_to(track: BackgroundTrack) -> void:
+	print("Chaning background music to ", str(track))
 	# If both tracks are playing, we're calling the function in the middle of a fade.
 	# We return early to avoid jumps in the sound.
 	if _track_1.playing and _track_2.playing:

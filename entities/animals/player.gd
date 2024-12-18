@@ -16,18 +16,25 @@ func _physics_process(_delta: float) -> void:
 
 	if Input.is_action_pressed("sprint"):
 		velocity = direction * run_speed
-		if not audio.stream == run_sound or not audio.playing:
-			audio.stream = run_sound
-			audio.play()
+		audio.stream = run_sound
+		audio.play()
 	else:
 		velocity = direction * walk_speed
-		if not audio.stream == walk_sound or not audio.playing:
-			audio.stream = walk_sound
-			audio.play()
+		audio.stream = walk_sound
+		audio.play()
 
-	print(audio.stream.resource_path, " ", audio.playing)
 	move_and_slide()
 
 func _on_area_2d_area_entered(area:Area2D) -> void:
 	var food : Food = area.get_parent()
 	food.collect()
+
+
+func _on_hearing_area_animal_entered_sense_range(which_sense: SenseArea, which_animal: Animal) -> void:
+	if which_animal is Player:
+		return
+	
+	print("animal entered player range")
+	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.CLOSE)
+
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://38iu61crugdj"]
+[gd_scene load_steps=13 format=3 uid="uid://38iu61crugdj"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_vfwjc"]
 [ext_resource type="PackedScene" uid="uid://di8x3matt2snd" path="res://entities/items/food.tscn" id="2_sr6hq"]
@@ -8,7 +8,6 @@
 [ext_resource type="Shader" path="res://scenes/snowfall.gdshader" id="6_bkunl"]
 [ext_resource type="Texture2D" uid="uid://chpx0ik3htgom" path="res://assets/environment/tiles/snow_2.png" id="6_s0b1a"]
 [ext_resource type="PackedScene" uid="uid://cfig25gierdn8" path="res://entities/habitats/hare_burrow.tscn" id="8_g7k2v"]
-[ext_resource type="AudioStream" uid="uid://dvo2asmyqiiwj" path="res://assets/music/Peace.mp3" id="9_bsqrd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trgcp"]
 texture = ExtResource("5_164rd")
@@ -75,7 +74,3 @@ color = Color(1, 1, 1, 0)
 
 [node name="HareBurrow" parent="." instance=ExtResource("8_g7k2v")]
 z_index = -1
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("9_bsqrd")
-autoplay = true

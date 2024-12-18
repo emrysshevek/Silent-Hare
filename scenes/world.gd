@@ -10,6 +10,8 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.PEACE)
+	
 	for i in range(-dimensions.x / 2, dimensions.x / 2):
 		for j in range(-dimensions.y / 2, dimensions.y / 2):
 			ground_layer.set_cell(Vector2i(i, j), 1 if randf() < .05 else 0, Vector2i.ZERO)

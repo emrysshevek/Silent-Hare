@@ -21,5 +21,4 @@ func exit() -> void:
 	animal.show()
 
 func finish_stay() -> void:
-	print("finished stay")
 	finished.emit(WANDER)

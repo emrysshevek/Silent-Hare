@@ -14,7 +14,8 @@ size = Vector2(16, 16)
 [node name="Fox" type="CharacterBody2D"]
 collision_layer = 68
 script = ExtResource("1_v0i27")
-speed = 25.0
+run_speed = 45.0
+turn_speed = 15.0
 vision_range = 32.0
 hearing_range = 48.0
 

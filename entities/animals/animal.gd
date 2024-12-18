@@ -8,6 +8,8 @@ signal animal_exited_hearing(which_animal : Animal)
 
 @export var walk_speed : float = 25
 @export var run_speed : float = 50
+@export var turn_speed: float = 30
+
 @export var vision_range : float = 16
 @export var hearing_range : float = 16
 @export var visible_range : float = 16

@@ -23,10 +23,10 @@ func _input(event: InputEvent) -> void:
 		if event.is_pressed():
 			# zoom in
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				get_node("Camera2D").zoom *= 1.5				
+				get_node("Camera2D").zoom *= 1.1				
 			# zoom out
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				get_node("Camera2D").zoom /= 1.5
+				get_node("Camera2D").zoom /= 1.1
 	
 func try_spawn_food(x: int, y: int) -> void:
 	if randf() > .95:

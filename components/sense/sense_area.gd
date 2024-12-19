@@ -7,8 +7,9 @@ signal animal_exited_sense_range(which_sense: SenseArea, which_animal : Animal)
 @onready var collision : CollisionShape2D = get_node("CollisionShape2D")
 
 func set_radius(radius : float) -> void:
-	var shape : CircleShape2D = collision.shape
+	var shape := CircleShape2D.new()
 	shape.radius = radius
+	collision.shape = shape
 
 func get_radius() -> float:
 	return collision.shape.radius

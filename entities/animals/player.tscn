@@ -13,12 +13,9 @@ size = Vector2(16, 16)
 radius = 58.0345
 
 [node name="Player" type="CharacterBody2D"]
-
 collision_layer = 64
 collision_mask = 13
 motion_mode = 1
-
-
 script = ExtResource("1_nqeti")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -56,11 +53,13 @@ position = Vector2(0, -17)
 scale = Vector2(0.0646552, 0.0421053)
 texture = ExtResource("5_mxhvn")
 
-[node name="Duration" type="Timer" parent="thump"]
-wait_time = 7.0
+[node name="CoolDown" type="Timer" parent="thump"]
+wait_time = 50.0
 
-[node name="delay" type="Timer" parent="thump"]
-wait_time = 30.0
+[node name="Duration" type="Timer" parent="thump"]
+wait_time = 20.0
 
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
 [connection signal="area_exited" from="CollectionArea" to="." method="_on_collection_area_area_exited"]
+[connection signal="timeout" from="thump/CoolDown" to="thump" method="_on_cool_down_timeout"]
+[connection signal="timeout" from="thump/Duration" to="thump" method="_on_duration_timeout"]

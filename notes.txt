@@ -1,0 +1,27 @@
+TODO:
+- fox kills hare on catch 
+- improve world generation
+  - create a world grid with cells to keep track of what tiles hold what so that they don't overlap
+  - use noise maps to determine terrain layout
+    1. use worley noise to determine biomes
+        < .5 => snow
+            - basic biome
+            - small chance to spawn a rock or tree (use perlin noise with high threshold)
+        < .75 => rock field
+            - higher visibility
+            - high chance to spawn a rock (perlin noise with low threshold)
+            - low chance to spawn a tree (white noise with high threshold)
+        < 1 => forest
+            - lower visibility
+            - high chance to spawn a tree (white noise )
+        - save random number as biome id
+    2. for every biome add 0-2 fox dens using the random worley value
+  - use perlin noise to create distributed clumps of food
+
+DONE
+- Learn how to use butler to deploy to itch
+- Improve fox chasing
+  - include temporary hare sprinting speed
+  - make it run slower
+  - turning radius
+  - can only run for a short time

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=4 uid="uid://38iu61crugdj"]
 
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_vfwjc"]
-[ext_resource type="TileSet" uid="uid://d2kfkadtgw2c" path="res://assets/environment/tiles/snow_tiles.tres" id="4_0e6qm"]
+[ext_resource type="TileSet" uid="uid://c22wd543s7g3g" path="res://assets/environment/tiles/snow_tiles.tres" id="4_0e6qm"]
 [ext_resource type="PackedScene" uid="uid://bq1d1lyxsd14k" path="res://entities/animals/player.tscn" id="4_dth15"]
 [ext_resource type="Shader" path="res://scenes/world/snowfall.gdshader" id="6_bkunl"]
 [ext_resource type="PackedScene" uid="uid://cfig25gierdn8" path="res://entities/habitats/hare_burrow.tscn" id="8_g7k2v"]
@@ -23,6 +23,7 @@ shader_parameter/slant = 4.75e-08
 [node name="World" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_vfwjc")
+chunk_size = 128
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)

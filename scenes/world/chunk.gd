@@ -22,7 +22,7 @@ func center() -> Vector2:
 
 func generate_biome(x: int, y: int) -> void:
 	var tile_pos = Constants.tile_to_global(Vector2i(x, y), coords)
-	var noise = TerrainMaps.biome.get_noise_2d(tile_pos.x, tile_pos.y)
+	var biome_noise = TerrainMaps.biome.get_noise_2d(tile_pos.x, tile_pos.y)
 
 	# if noise < .5:
 	# 	terrain[Vector2(x, y)] = World.Biome.SNOW
@@ -31,12 +31,10 @@ func generate_biome(x: int, y: int) -> void:
 	# 	terrain[Vector2(x, y)] = World.Biome.FOREST
 	# 	populate_forest_tile(tile_pos)
 
-	# noise = 100 * ((TerrainMaps.food_distribution.get_noise_2d(tile_pos.x, tile_pos.y) + 1) / 2)
-	noise = remap_range(TerrainMaps.food_distribution.get_noise_2d(tile_pos.x, tile_pos.y), -1, .5)
-	var rng = randf()
-	print(rng, ", ", noise)
-	if rng < clamp(noise, .02, .5):
-	# if noise < 50:
+	var food_noise = TerrainMaps.food_distribution.get_noise_2d(tile_pos.x, tile_pos.y)
+	var rng = float(rand_from_seed(food_noise * 10000)[0]) / (2 ** 32)
+	food_noise = remap_range(food_noise, -1, .5)
+	if rng < clamp(food_noise, .02, .5):
 		spawn_food(tile_pos)
 
 func remap_range(x: float, out_min: float, out_max: float, in_min:=-1.0, in_max:=1.0):

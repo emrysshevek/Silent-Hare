@@ -47,8 +47,3 @@ func spawn_habitats() -> void:
 				var den = fox_den_scene.instantiate() as Node2D
 				add_child(den)
 				den.position = pos
-
-
-
-
-

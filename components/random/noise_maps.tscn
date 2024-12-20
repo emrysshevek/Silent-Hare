@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://2oei0ouiipln"]
+
+[ext_resource type="Script" path="res://components/random/noise_maps.gd" id="1_dp63g"]
+
+[node name="NoiseMaps" type="Node"]
+script = ExtResource("1_dp63g")

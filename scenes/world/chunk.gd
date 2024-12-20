@@ -19,7 +19,7 @@ func center() -> Vector2:
 func generate_biome(x: int, y: int) -> void:
     var tile_pos = Constants.tile_to_global(Vector2i(x, y), coords)
     # var noise: int = posmod(int(NoiseMaps.biome.get_noise_2d(tile_pos.x, tile_pos.y) *  pow(10, 7)), 10)
-    var noise = (NoiseMaps.biome.get_noise_2d(tile_pos.x, tile_pos.y) + 1) / 2
+    # var noise = (NoiseMaps.biome.get_noise_2d(tile_pos.x, tile_pos.y) + 1) / 2
     if noise < .3 or noise > .7:
         generate_snow_tile(x, y)
     elif noise < .5:
@@ -33,9 +33,12 @@ func generate_snow_tile(x: int, y: int) -> void:
 func generate_rock_field_tile(x: int, y: int) -> void:
     var rock: Sprite2D = preload("res://entities/items/rock.tscn").instantiate()
     add_child(rock)
-    rock.position = Constants.tile_to_position(Vector2i(x, y)) + Constants.TILE_CENTER
+    var jitter = Vector2(randf_range(0, 32), randf_range(0, 32))
+    rock.position = Constants.tile_to_position(Vector2i(x, y)) + jitter
 
 func generate_forest_tile(x: int, y: int) -> void:
     var tree: Sprite2D = preload("res://entities/items/tree.tscn").instantiate()
     add_child(tree)
-    tree.position = Constants.tile_to_position(Vector2i(x, y)) + Constants.TILE_CENTER
+    var jitter = Vector2(randf_range(0, 32), randf_range(0, 32))
+    tree.position = Constants.tile_to_position(Vector2i(x, y)) + jitter
+    tree.rotation += deg_to_rad(randf_range(-2, 2))

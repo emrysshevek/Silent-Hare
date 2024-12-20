@@ -18,12 +18,12 @@ enum BackgroundTrack {
 var track_idx = 0
 
 var tracks: Array[AudioStream] = [
-	preload("res://assets/music/Main theme.mp3"),
-	preload("res://assets/music/Main theme happy.mp3"),
-	preload("res://assets/music/Peace.mp3"),
-	preload("res://assets/music/Close.mp3"),
-	preload("res://assets/music/Chase.mp3"),
-	preload("res://assets/music/Chase Very Close.mp3"),
+	load("res://assets/music/Main theme.mp3"),
+	load("res://assets/music/Main theme happy.mp3"),
+	load("res://assets/music/Peace.mp3"),
+	load("res://assets/music/Close.mp3"),
+	load("res://assets/music/Chase.mp3"),
+	load("res://assets/music/Chase Very Close.mp3"),
 ]
 
 # crossfades to a new audio stream

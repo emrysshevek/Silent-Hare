@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://2oei0ouiipln"]
+[gd_scene load_steps=3 format=3 uid="uid://2oei0ouiipln"]
 
 [ext_resource type="Script" path="res://components/random/noise_maps.gd" id="1_dp63g"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ac5v3"]
+noise_type = 2
+frequency = 0.004
+fractal_type = 2
+fractal_octaves = 2
+fractal_lacunarity = 2.5
+fractal_gain = 0.1
+cellular_return_type = 0
+
 [node name="NoiseMaps" type="Node"]
 script = ExtResource("1_dp63g")
+biome = SubResource("FastNoiseLite_ac5v3")

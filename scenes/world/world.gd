@@ -13,7 +13,7 @@ func _ready() -> void:
 	# var curr_chunk := cell_to_chunk(position_to_chunk(player.global_position))
 	for i in range(-1, 2):
 		for j in range(-1, 2):
-			var chunk := preload("res://scenes/world/chunk.tscn").instantiate()
+			var chunk: Chunk = load("res://scenes/world/chunk.tscn").instantiate()
 			add_child(chunk)
 			chunk.generate(Vector2i(i, j))
 

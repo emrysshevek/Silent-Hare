@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 BackgroundMusicManager="*res://components/sound/background_music_manager.tscn"
 Constants="*res://globals/constants.gd"
+TerrainMaps="*res://components/random/noise_maps.tscn"
 
 [debug]
 

@@ -1,6 +1,6 @@
 extends Node
 
-const TILE_SIZE := 32
+const TILE_SIZE := 16
 const TILE_CENTER := Vector2(16, 16)
 const CHUNK_SIZE := 32
 

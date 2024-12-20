@@ -30,7 +30,7 @@ height = 32
 noise = SubResource("FastNoiseLite_q0pkx")
 
 [node name="Chunk" type="Node2D"]
-z_index = -1
+y_sort_enabled = true
 script = ExtResource("1_3dwcr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

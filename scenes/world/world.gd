@@ -1,4 +1,4 @@
-extends Node2D
+class_name World extends Node2D
 
 @export var chunk_size := 8
 
@@ -6,6 +6,11 @@ extends Node2D
 
 var tile_size = 32
 var chunks: Array[Chunk]
+
+enum Biome {
+	SNOW,
+	FOREST
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

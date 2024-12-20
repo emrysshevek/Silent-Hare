@@ -1,16 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://2oei0ouiipln"]
+[gd_scene load_steps=4 format=3 uid="uid://2oei0ouiipln"]
 
 [ext_resource type="Script" path="res://components/random/noise_maps.gd" id="1_dp63g"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ac5v3"]
 noise_type = 2
 frequency = 0.004
-fractal_type = 2
+fractal_type = 0
 fractal_octaves = 2
-fractal_lacunarity = 2.5
-fractal_gain = 0.1
+fractal_weighted_strength = 0.23
+cellular_jitter = 2.0
 cellular_return_type = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qkkqb"]
+noise_type = 0
+frequency = 0.0028
+fractal_lacunarity = 2.695
+fractal_gain = 0.31
+fractal_weighted_strength = 0.15
 
 [node name="NoiseMaps" type="Node"]
 script = ExtResource("1_dp63g")
 biome = SubResource("FastNoiseLite_ac5v3")
+food_distribution = SubResource("FastNoiseLite_qkkqb")

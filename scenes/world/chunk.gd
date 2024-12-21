@@ -6,7 +6,7 @@ class_name Chunk extends Node2D
 @onready var food_scene = load("res://entities/items/food.tscn")
 
 var coords: Vector2i
-var food: Dictionary
+var foods: Array[Food]
 var terrain: Dictionary
 
 func generate(at: Vector2i) -> void:
@@ -24,38 +24,59 @@ func generate_biome(x: int, y: int) -> void:
 	var tile_pos = Constants.tile_to_global(Vector2i(x, y), coords)
 	var biome_noise = TerrainMaps.biome.get_noise_2d(tile_pos.x, tile_pos.y)
 
-	# if noise < .5:
-	# 	terrain[Vector2(x, y)] = World.Biome.SNOW
-	# 	populate_snow_tile(tile_pos)
-	# else:
-	# 	terrain[Vector2(x, y)] = World.Biome.FOREST
-	# 	populate_forest_tile(tile_pos)
+	if biome_noise < .5:
+		terrain[Vector2(x, y)] = World.Biome.SNOW
+		populate_snow_tile(tile_pos)
+	else:
+		terrain[Vector2(x, y)] = World.Biome.FOREST
+		populate_forest_tile(tile_pos)
 
 	var food_noise = TerrainMaps.food_distribution.get_noise_2d(tile_pos.x, tile_pos.y)
-	var rng = float(rand_from_seed(food_noise * 10000)[0]) / (2 ** 32)
-	food_noise = remap_range(food_noise, -1, .5)
-	if rng < clamp(food_noise, .02, .5):
+	var rng = rand_from_seed(food_noise * 10000)[0] / float(2 ** 32)
+	food_noise = remap_range(food_noise, 0, 1) * .7 - .4
+	print(rng, ", ", food_noise)
+	if rng < max(food_noise, 0.025):
 		spawn_food(tile_pos)
 
 func remap_range(x: float, out_min: float, out_max: float, in_min:=-1.0, in_max:=1.0):
 	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 
+func seeded_randf(x: int) -> float:
+	return rand_from_seed(x * 10000)[0] / float(2 ** 32)
+
 func populate_snow_tile(pos: Vector2) -> void:
-	pass
+	if remap_range(TerrainMaps.rock_distribution.get_noise_2d(pos.x, pos.y), 0, 1) < .07:
+		spawn_rock(pos)
+	elif remap_range(TerrainMaps.tree_distribution.get_noise_2d(pos.x, pos.y), 0, 1) < .06:
+		spawn_tree(pos)
 
 func populate_forest_tile(pos: Vector2) -> void:
-	spawn_tree(pos)
+	if remap_range(TerrainMaps.tree_distribution.get_noise_2d(pos.x, pos.y), 0, 1) < .5:
+		spawn_tree(pos)
+	elif remap_range(TerrainMaps.rock_distribution.get_noise_2d(pos.x, pos.y), 0, 1) < .1:
+		spawn_rock(pos)
 
 func spawn_food(pos: Vector2) -> void:
-	var tree: Node2D = food_scene.instantiate()
-	add_child(tree)
-	var jitter = Vector2(randf_range(0, 32), randf_range(0, 32))
-	tree.global_position = pos + jitter
-	tree.rotation += deg_to_rad(randf_range(-2, 2))
+	var food: Food = food_scene.instantiate()
+	add_child(food)
+	var jitter = Vector2(randf_range(0, Constants.TILE_SIZE / 2), randf_range(0, Constants.TILE_SIZE / 2))
+	food.global_position = pos + jitter
+	food.collected.connect(on_food_collected)
+	foods.append(food) 
 
 func spawn_tree(pos: Vector2) -> void:
 	var tree: Sprite2D = tree_scene.instantiate()
 	add_child(tree)
-	var jitter = Vector2(randf_range(0, 32), randf_range(0, 32))
+	var jitter = Vector2(randf_range(0, Constants.TILE_SIZE), randf_range(0, Constants.TILE_SIZE))
 	tree.global_position = pos + jitter
 	tree.rotation += deg_to_rad(randf_range(-2, 2))
+
+func spawn_rock(pos: Vector2) -> void:
+	var rock: Sprite2D = rock_scene.instantiate()
+	add_child(rock)
+	var jitter = Vector2(randf_range(0, Constants.TILE_SIZE), randf_range(0, Constants.TILE_SIZE))
+	rock.global_position = pos + jitter
+	rock.rotation += deg_to_rad(randf_range(-2, 2))
+
+func on_food_collected(which_food: Food) -> void:
+	foods.erase(which_food)

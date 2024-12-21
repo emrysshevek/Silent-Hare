@@ -33,6 +33,7 @@ position_smoothing_enabled = true
 z_index = -1
 
 [node name="Player" parent="." instance=ExtResource("4_dth15")]
+y_sort_enabled = true
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")

@@ -5,3 +5,4 @@
 [node name="Tree" type="Sprite2D"]
 texture_filter = 3
 texture = ExtResource("1_sb3rf")
+offset = Vector2(0, -14.14)

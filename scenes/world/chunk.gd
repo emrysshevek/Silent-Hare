@@ -45,9 +45,9 @@ func seeded_randf(x: int) -> float:
 	return rand_from_seed(x * 10000)[0] / float(2 ** 32)
 
 func populate_snow_tile(pos: Vector2) -> void:
-	if remap_range(TerrainMaps.rock_distribution.get_noise_2d(pos.x, pos.y), 0, 1) < .07:
+	if remap_range(TerrainMaps.rock_distribution.get_noise_2d(pos.x, pos.y), 0, 1) < .055:
 		spawn_rock(pos)
-	elif remap_range(TerrainMaps.tree_distribution.get_noise_2d(pos.x, pos.y), 0, 1) < .06:
+	elif remap_range(TerrainMaps.tree_distribution.get_noise_2d(pos.x, pos.y), 0, 1) < .055:
 		spawn_tree(pos)
 
 func populate_forest_tile(pos: Vector2) -> void:

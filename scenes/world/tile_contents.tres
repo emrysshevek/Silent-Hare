@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="TileContents" load_steps=2 format=3 uid="uid://cqh2l7q1m10i5"]
+
+[ext_resource type="Script" path="res://scenes/world/tile_contents.gd" id="1_odpdl"]
+
+[resource]
+script = ExtResource("1_odpdl")

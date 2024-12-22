@@ -32,8 +32,14 @@ func on_player_died() -> void:
 	var tween = create_tween()
 	tween.tween_property(Globals.camera, "zoom", Vector2(1.5, 1.5), 10)
 	tween.finished.connect(on_tween_finished)
+	
 
 func on_tween_finished() -> void:
+	var ap: AnimationPlayer = get_node("AnimationPlayer")
+	ap.play("wipe")
+	ap.animation_finished.connect(quit)
+
+func quit(name) -> void:
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 

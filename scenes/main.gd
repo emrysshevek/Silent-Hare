@@ -5,8 +5,6 @@ extends Node2D
 func _ready() -> void:
 	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.MAIN)
 
-
-
 func _on_button_button_up() -> void:
 	var ap: AnimationPlayer = get_node("AnimationPlayer")
 	ap.play("start")

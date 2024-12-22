@@ -1,22 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://bq1d1lyxsd14k"]
+[gd_scene load_steps=9 format=3 uid="uid://bq1d1lyxsd14k"]
 
 [ext_resource type="Script" path="res://entities/animals/player.gd" id="1_nqeti"]
 [ext_resource type="Texture2D" uid="uid://cgrkw31r54bf6" path="res://assets/sprites/creatures/hare_stand.png" id="2_0fpsg"]
 [ext_resource type="PackedScene" uid="uid://0met6vpi0caw" path="res://components/sense/sense_area.tscn" id="3_jiqeb"]
+[ext_resource type="Script" path="res://components/thump/thump.gd" id="4_bugl1"]
+[ext_resource type="Texture2D" uid="uid://fclcfbnf4p40" path="res://components/thump/png-clipart-arrow-computer-icons-orange-yellow-angle-orange-thumbnail.png" id="5_mxhvn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jq2l8"]
 size = Vector2(16, 16)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_lwdl6"]
+radius = 64.0
+
+[sub_resource type="Gradient" id="Gradient_ovsbe"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
+collision_mask = 13
+motion_mode = 1
 script = ExtResource("1_nqeti")
-walk_speed = null
-run_speed = null
-turn_speed = null
-vision_range = null
 hearing_range = 200.0
-visible_range = null
-hearable_range = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jq2l8")
@@ -27,8 +31,7 @@ texture = ExtResource("2_0fpsg")
 offset = Vector2(0, -7.13)
 
 [node name="CollectionArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 8
+collision_mask = 9
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CollectionArea"]
 shape = SubResource("RectangleShape2D_jq2l8")
@@ -43,6 +46,43 @@ visible = false
 collision_layer = 16
 collision_mask = 256
 
+[node name="thump" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("4_bugl1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="thump"]
+shape = SubResource("CircleShape2D_lwdl6")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="thump"]
+emitting = false
+amount = 16
+lifetime = 0.75
+one_shot = true
+explosiveness = 0.83
+randomness = 0.29
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+tangential_accel_min = -100.0
+tangential_accel_max = 100.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_ovsbe")
+
+[node name="Sprite2D" type="Sprite2D" parent="thump"]
+visible = false
+position = Vector2(0, -17)
+scale = Vector2(0.0646552, 0.0421053)
+texture = ExtResource("5_mxhvn")
+
+[node name="CoolDown" type="Timer" parent="thump"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Duration" type="Timer" parent="thump"]
+wait_time = 20.0
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 volume_db = 2.811
 bus = &"Sounds"
@@ -54,7 +94,10 @@ collision_mask = 16
 [node name="CollisionShape2D" parent="HearingArea" index="0"]
 debug_color = Color(0.587097, 0.548436, 0.0575245, 0.42)
 
-[connection signal="area_entered" from="CollectionArea" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
+[connection signal="area_exited" from="CollectionArea" to="." method="_on_collection_area_area_exited"]
+[connection signal="timeout" from="thump/CoolDown" to="thump" method="_on_cool_down_timeout"]
+[connection signal="timeout" from="thump/Duration" to="thump" method="_on_duration_timeout"]
 [connection signal="animal_entered_sense_range" from="HearingArea" to="." method="_on_hearing_area_animal_entered_sense_range"]
 [connection signal="animal_exited_sense_range" from="HearingArea" to="." method="_on_hearing_area_animal_exited_sense_range"]
 

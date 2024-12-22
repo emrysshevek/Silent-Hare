@@ -51,7 +51,6 @@ func _process(delta: float) -> void:
 					chunk.generate(Vector2i(i, j))
 				update_chunk_data(chunk)
 				active_chunks[key] = chunk
-	print(chunk_data)
 
 func update_chunk_data(chunk: Chunk) -> void:
 	chunk_data[chunk.coords] = {

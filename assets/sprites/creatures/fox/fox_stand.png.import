@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgrkw31r54bf6"
-path="res://.godot/imported/hare_stand.png-5eec967d8c6dee2ce2deb9aa6b2d988f.ctex"
+uid="uid://nudsm71dpks6"
+path="res://.godot/imported/fox_stand.png-bf369a6f467916bab9fffa736e2b7daa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/creatures/hare_stand.png"
-dest_files=["res://.godot/imported/hare_stand.png-5eec967d8c6dee2ce2deb9aa6b2d988f.ctex"]
+source_file="res://assets/sprites/creatures/fox/fox_stand.png"
+dest_files=["res://.godot/imported/fox_stand.png-bf369a6f467916bab9fffa736e2b7daa.ctex"]
 
 [params]
 

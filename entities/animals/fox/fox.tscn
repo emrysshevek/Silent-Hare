@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://jurclf7d20g1"]
 
 [ext_resource type="Script" path="res://entities/animals/animal.gd" id="1_v0i27"]
-[ext_resource type="Texture2D" uid="uid://nudsm71dpks6" path="res://assets/sprites/creatures/fox_stand.png" id="2_2p4kx"]
+[ext_resource type="Texture2D" uid="uid://nudsm71dpks6" path="res://assets/sprites/creatures/fox/fox_stand.png" id="2_2p4kx"]
 [ext_resource type="PackedScene" uid="uid://0met6vpi0caw" path="res://components/sense/sense_area.tscn" id="2_rjbsa"]
 [ext_resource type="Script" path="res://components/state_machine/state_machine.gd" id="4_ujj3l"]
-[ext_resource type="Script" path="res://entities/animals/predators/behaviors/home_state.gd" id="5_qeket"]
-[ext_resource type="Script" path="res://entities/animals/predators/behaviors/wander_state.gd" id="6_ieek8"]
-[ext_resource type="Script" path="res://entities/animals/predators/behaviors/chase_state.gd" id="7_fotcy"]
+[ext_resource type="Script" path="res://entities/animals/fox/behaviors/home_state.gd" id="5_qeket"]
+[ext_resource type="Script" path="res://entities/animals/fox/behaviors/wander_state.gd" id="6_ieek8"]
+[ext_resource type="Script" path="res://entities/animals/fox/behaviors/chase_state.gd" id="7_fotcy"]
 [ext_resource type="PackedScene" uid="uid://c5r7cpgp1mtmj" path="res://components/sense/sensable_area.tscn" id="8_kpuou"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smwkv"]

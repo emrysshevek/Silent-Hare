@@ -43,10 +43,10 @@ func _physics_process(delta):
 	if cooldown.time_left == 0:
 		cooldown_state = true
 	
-	if Input.is_action_just_pressed("thump") and cooldown_state == true: #more timer conditioning
-		cooldown.start()
-		thump()
-		cooldown_state = false
+	# if Input.is_action_just_pressed("thump") and cooldown_state == true: #more timer conditioning
+	# 	cooldown.start()
+	# 	thump()
+	# 	cooldown_state = false
 
 		
 
@@ -58,6 +58,7 @@ func _on_cool_down_timeout():
 
 
 func thump():
+	print("thumping")
 	if closest and closest.is_inside_tree():
 		particles.direction = global_position.direction_to(closest.global_position)
 		var distance = clamp(1 - global_position.distance_to(closest.global_position) / 64, 0, 1)

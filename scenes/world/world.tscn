@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_vfwjc"]
 [ext_resource type="TileSet" uid="uid://c22wd543s7g3g" path="res://assets/environment/tiles/snow_tiles.tres" id="4_0e6qm"]
-[ext_resource type="PackedScene" uid="uid://bq1d1lyxsd14k" path="res://entities/animals/player.tscn" id="4_dth15"]
+[ext_resource type="PackedScene" uid="uid://bq1d1lyxsd14k" path="res://entities/animals/hare/player.tscn" id="4_dth15"]
 [ext_resource type="Shader" path="res://scenes/world/snowfall.gdshader" id="6_bkunl"]
 [ext_resource type="PackedScene" uid="uid://cfig25gierdn8" path="res://entities/habitats/hare_burrow.tscn" id="8_g7k2v"]
+
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ymy6l"]
 shader = ExtResource("6_bkunl")

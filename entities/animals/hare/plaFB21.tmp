@@ -1,0 +1,258 @@
+[gd_scene load_steps=28 format=3 uid="uid://bq1d1lyxsd14k"]
+
+[ext_resource type="Script" path="res://entities/animals/hare/player.gd" id="1_nqeti"]
+[ext_resource type="Texture2D" uid="uid://cgrkw31r54bf6" path="res://assets/sprites/creatures/hare/hare_stand.png" id="2_0fpsg"]
+[ext_resource type="Texture2D" uid="uid://7sm2s7gdu2wf" path="res://assets/sprites/creatures/hare/hare_dead.png" id="2_a77an"]
+[ext_resource type="Texture2D" uid="uid://dhtl2vlr7li1h" path="res://assets/sprites/creatures/hare/hare_hide.png" id="3_5p4ew"]
+[ext_resource type="PackedScene" uid="uid://0met6vpi0caw" path="res://components/sense/sense_area.tscn" id="3_jiqeb"]
+[ext_resource type="Script" path="res://components/thump/thump.gd" id="4_bugl1"]
+[ext_resource type="Texture2D" uid="uid://ca3a5fpasdrqa" path="res://assets/sprites/creatures/hare/hare_move1.png" id="5_cikb8"]
+[ext_resource type="Texture2D" uid="uid://fclcfbnf4p40" path="res://components/thump/png-clipart-arrow-computer-icons-orange-yellow-angle-orange-thumbnail.png" id="5_mxhvn"]
+[ext_resource type="Texture2D" uid="uid://djms24r5tgguc" path="res://assets/sprites/creatures/hare/hare_move2.png" id="6_71wg2"]
+[ext_resource type="Script" path="res://components/state_machine/state_machine.gd" id="6_f1bby"]
+[ext_resource type="Script" path="res://entities/animals/hare/behavior/idle_state.gd" id="7_354pg"]
+[ext_resource type="Texture2D" uid="uid://ukm4vvqwycgy" path="res://assets/sprites/creatures/hare/hare_move3.png" id="7_uo5xc"]
+[ext_resource type="Texture2D" uid="uid://ceyaprbukopj5" path="res://assets/sprites/creatures/hare/hare_move4.png" id="8_e304h"]
+[ext_resource type="Script" path="res://entities/animals/hare/behavior/move_state.gd" id="8_ejasg"]
+[ext_resource type="Texture2D" uid="uid://drnntq5x16xps" path="res://assets/sprites/creatures/hare/hare_move5.png" id="9_7ymn2"]
+[ext_resource type="Script" path="res://entities/animals/hare/behavior/dig_state.gd" id="9_50ho8"]
+[ext_resource type="Script" path="res://entities/animals/hare/behavior/thump_state.gd" id="10_gjd2x"]
+[ext_resource type="Texture2D" uid="uid://df1c8n6typtan" path="res://assets/sprites/creatures/hare/hare_thump1.png" id="10_lyii4"]
+[ext_resource type="Texture2D" uid="uid://drucvpwlt2h7s" path="res://assets/sprites/creatures/hare/hare_thump2.png" id="11_wseso"]
+[ext_resource type="Texture2D" uid="uid://x4juresca0wj" path="res://assets/sprites/creatures/hare/hare_thump3.png" id="12_rt2ty"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jq2l8"]
+size = Vector2(16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mxxvc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a77an")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5p4ew")
+}],
+"loop": true,
+"name": &"hide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0fpsg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_cikb8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_71wg2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_uo5xc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_e304h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7ymn2")
+}],
+"loop": false,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_lyii4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_wseso")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_rt2ty")
+}],
+"loop": false,
+"name": &"thump",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_cikb8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_71wg2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_uo5xc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_e304h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7ymn2")
+}],
+"loop": false,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lwdl6"]
+radius = 64.0
+
+[sub_resource type="Gradient" id="Gradient_ovsbe"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_ijj6q"]
+resource_name = "hop"
+step = 0.07
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0714286),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("5_cikb8"), ExtResource("6_71wg2")]
+}
+
+[sub_resource type="Animation" id="Animation_wykw5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_cikb8")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kl17b"]
+_data = {
+"RESET": SubResource("Animation_wykw5"),
+"hop": SubResource("Animation_ijj6q")
+}
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 13
+motion_mode = 1
+script = ExtResource("1_nqeti")
+hearing_range = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jq2l8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+sprite_frames = SubResource("SpriteFrames_mxxvc")
+animation = &"hide"
+offset = Vector2(0, -7.13)
+
+[node name="CollectionArea" type="Area2D" parent="."]
+collision_mask = 9
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CollectionArea"]
+shape = SubResource("RectangleShape2D_jq2l8")
+
+[node name="VisibleArea" parent="." instance=ExtResource("3_jiqeb")]
+visible = false
+collision_layer = 32
+collision_mask = 128
+
+[node name="HearableArea" parent="." instance=ExtResource("3_jiqeb")]
+visible = false
+collision_layer = 16
+collision_mask = 256
+
+[node name="thump" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("4_bugl1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="thump"]
+shape = SubResource("CircleShape2D_lwdl6")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="thump"]
+emitting = false
+amount = 16
+lifetime = 0.75
+one_shot = true
+explosiveness = 0.83
+randomness = 0.29
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+tangential_accel_min = -100.0
+tangential_accel_max = 100.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_ovsbe")
+
+[node name="Sprite2D" type="Sprite2D" parent="thump"]
+visible = false
+position = Vector2(0, -17)
+scale = Vector2(0.0646552, 0.0421053)
+texture = ExtResource("5_mxhvn")
+
+[node name="CoolDown" type="Timer" parent="thump"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Duration" type="Timer" parent="thump"]
+wait_time = 20.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = 2.811
+bus = &"Sounds"
+
+[node name="HearingArea" parent="." instance=ExtResource("3_jiqeb")]
+collision_layer = 256
+collision_mask = 16
+
+[node name="CollisionShape2D" parent="HearingArea" index="0"]
+debug_color = Color(0.587097, 0.548436, 0.0575245, 0.42)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("6_f1bby")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("7_354pg")
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource("8_ejasg")
+
+[node name="Dig" type="Node" parent="StateMachine"]
+script = ExtResource("9_50ho8")
+
+[node name="Thump" type="Node" parent="StateMachine"]
+script = ExtResource("10_gjd2x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kl17b")
+}
+
+[connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
+[connection signal="area_exited" from="CollectionArea" to="." method="_on_collection_area_area_exited"]
+[connection signal="timeout" from="thump/CoolDown" to="thump" method="_on_cool_down_timeout"]
+[connection signal="timeout" from="thump/Duration" to="thump" method="_on_duration_timeout"]
+[connection signal="animal_entered_sense_range" from="HearingArea" to="." method="_on_hearing_area_animal_entered_sense_range"]
+[connection signal="animal_exited_sense_range" from="HearingArea" to="." method="_on_hearing_area_animal_exited_sense_range"]
+
+[editable path="HearingArea"]

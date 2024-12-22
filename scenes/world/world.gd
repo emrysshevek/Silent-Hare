@@ -6,7 +6,7 @@ class_name World extends Node2D
 
 var tile_size = 32
 var chunks: Dictionary
-var prev_chunk: Vector2i
+var prev_chunk: Vector2i = Vector2i.MAX
 
 enum Biome {
 	SNOW,
@@ -16,20 +16,18 @@ enum Biome {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.PEACE)
-	prev_chunk = position_to_chunk(player.global_position)
-	# var den = load("res://entities/habitats/fox_den.tscn").instantiate() as Node2D
-	# add_child(den)
-	# den.position = Vector2(100, 100)
+	# prev_chunk = position_to_chunk(player.global_position)
+
 
 func _process(delta: float) -> void:
 	var curr_chunk := position_to_chunk(player.global_position)
-	if len(chunks) == 9 and curr_chunk == prev_chunk:
+	if curr_chunk == prev_chunk:
 		return
 
 	# print("entered new chunk: ", curr_chunk)
 	prev_chunk = curr_chunk
 	for key in chunks.keys():
-		if abs(chunks[key].coords.x - curr_chunk.x) > 1:
+		if abs(chunks[key].coords.x - curr_chunk.x) > 1 or abs(chunks[key].coords.y - curr_chunk.y) > 1:
 			print("unloading chunk: ", key)
 			chunks[key].queue_free()
 			chunks.erase(key)
@@ -49,7 +47,6 @@ func cell_to_chunk(cell: Vector2i) -> Vector2i:
 
 func position_to_chunk(pos: Vector2) -> Vector2i:
 	return Vector2i(floor(pos.x / (Constants.CHUNK_SIZE * Constants.TILE_SIZE)), floor(pos.y / (Constants.CHUNK_SIZE * Constants.TILE_SIZE)))
-
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

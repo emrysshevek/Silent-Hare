@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="ChunkData" load_steps=2 format=3 uid="uid://cy6rq8b865cac"]
+
+[ext_resource type="Script" path="res://scenes/world/chunk_data.gd" id="1_jmiur"]
+
+[resource]
+script = ExtResource("1_jmiur")

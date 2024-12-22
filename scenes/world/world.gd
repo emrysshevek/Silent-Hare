@@ -160,12 +160,12 @@ func cell_to_chunk(cell: Vector2i) -> Vector2i:
 func position_to_chunk(pos: Vector2) -> Vector2i:
 	return Vector2i(floor(pos.x / (Constants.CHUNK_SIZE * Constants.TILE_SIZE)), floor(pos.y / (Constants.CHUNK_SIZE * Constants.TILE_SIZE)))
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.is_pressed():
-			# zoom in
-			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				get_node("Camera2D").zoom *= 1.1				
-			# zoom out
-			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				get_node("Camera2D").zoom /= 1.1
+# func _input(event: InputEvent) -> void:
+# 	if event is InputEventMouseButton:
+# 		if event.is_pressed():
+# 			# zoom in
+# 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+# 				get_node("Camera2D").zoom *= 1.1				
+# 			# zoom out
+# 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+# 				get_node("Camera2D").zoom /= 1.1

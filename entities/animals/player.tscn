@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bq1d1lyxsd14k"]
+[gd_scene load_steps=9 format=3 uid="uid://bq1d1lyxsd14k"]
 
 [ext_resource type="Script" path="res://entities/animals/player.gd" id="1_nqeti"]
 [ext_resource type="Texture2D" uid="uid://cgrkw31r54bf6" path="res://assets/sprites/creatures/hare_stand.png" id="2_0fpsg"]
@@ -10,7 +10,10 @@
 size = Vector2(16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lwdl6"]
-radius = 58.0345
+radius = 64.0
+
+[sub_resource type="Gradient" id="Gradient_ovsbe"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
@@ -47,6 +50,22 @@ script = ExtResource("4_bugl1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="thump"]
 shape = SubResource("CircleShape2D_lwdl6")
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="thump"]
+emitting = false
+amount = 16
+lifetime = 0.75
+one_shot = true
+explosiveness = 0.83
+randomness = 0.29
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+tangential_accel_min = -100.0
+tangential_accel_max = 100.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_ovsbe")
+
 [node name="Sprite2D" type="Sprite2D" parent="thump"]
 visible = false
 position = Vector2(0, -17)
@@ -54,7 +73,8 @@ scale = Vector2(0.0646552, 0.0421053)
 texture = ExtResource("5_mxhvn")
 
 [node name="CoolDown" type="Timer" parent="thump"]
-wait_time = 50.0
+wait_time = 2.0
+one_shot = true
 
 [node name="Duration" type="Timer" parent="thump"]
 wait_time = 20.0

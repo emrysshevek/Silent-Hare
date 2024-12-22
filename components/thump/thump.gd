@@ -4,6 +4,7 @@ var closest : Area2D
 var arrow : Sprite2D
 var duration : Timer
 var cooldown : Timer
+var particles : CPUParticles2D
 
 var duration_state = false
 var cooldown_state = false
@@ -14,6 +15,7 @@ func _ready():
 	arrow = get_node("Sprite2D")
 	duration = get_node("Duration")
 	cooldown = get_node("CoolDown")
+	particles = get_node("CPUParticles2D")
 
 func _physics_process(delta):
 	var foods_close = get_overlapping_areas()
@@ -36,24 +38,16 @@ func _physics_process(delta):
 		closest = null
 
 
-	if duration.time_left ==0: # timer conditioning
+	if duration.time_left == 0: # timer conditioning
 		duration_state = false
-	if cooldown.time_left ==0:
+	if cooldown.time_left == 0:
 		cooldown_state = true
 	
 	if Input.is_action_just_pressed("thump") and cooldown_state == true: #more timer conditioning
 		cooldown.start()
-		duration.start()
+		thump()
 		cooldown_state = false
-		duration_state = true
-		
-	if duration_state == true:
-		if closest != null and closest.is_inside_tree():
-			thump()
-		else:
-			arrow.visible = false
-	else:
-		arrow.visible = false
+
 		
 
 func _on_duration_timeout():
@@ -65,7 +59,10 @@ func _on_cool_down_timeout():
 
 func thump():
 	if closest and closest.is_inside_tree():
-		arrow.look_at(closest.global_position)
-		arrow.visible = true
-	else:
-		arrow.visible = false
+		particles.direction = global_position.direction_to(closest.global_position)
+		var distance = clamp(1 - global_position.distance_to(closest.global_position) / 64, 0, 1)
+		print(distance)
+		particles.spread = (distance ** 2) * 180	 
+		particles.initial_velocity_min = 50
+		particles.initial_velocity_max = 80
+		particles.emitting = true

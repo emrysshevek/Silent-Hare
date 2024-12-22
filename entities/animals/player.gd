@@ -23,3 +23,4 @@ func _on_collection_area_area_entered(area:Area2D) -> void:
 
 func _on_collection_area_area_exited(area):
 	what_area = 2
+	food = null

@@ -9,48 +9,29 @@ class_name Chunk extends Node2D
 var save_root = "res://save_data/world/"
 var chunk_data = preload("res://scenes/world/chunk_data.tres")
 var coords: Vector2i
-var food_locations: Array[Food]
-var den_location = null
+var food_locations: Array[Vector2]
+var den_location: Vector2 = Vector2.INF
 var terrains: Dictionary
 
-func _exit_tree() -> void:
-	save_chunk()
-
-func generate(at: Vector2i) -> void:
+func generate(at: Vector2i, generate_food: bool = true, generate_den: bool = true) -> void:
 	coords = at
 	chunk_data.coords = at
 	global_position = Constants.chunk_to_global(chunk_data.coords)
 	
 	for i in range(Constants.CHUNK_SIZE):
 		for j in range(Constants.CHUNK_SIZE):
-			generate_biome(i, j)
+			generate_biome(i, j, generate_food)
 
-	if chunk_data.coords != Vector2i.ZERO and TerrainMaps.fox_distribution.get_noise_2d(chunk_data.coords.x, chunk_data.coords.y) < 0:
-		spawn_den()
-
-func generate_from_save() -> bool:
-	var loaded_data = load_chunk_data()
-	if loaded_data == null:
-		return false
-
-	chunk_data = loaded_data
-	for pos in chunk_data.tiles.keys():
-		var tile = chunk_data.tiles[pos]
-		if tile.tree != null:
-			spawn_tree(pos)
-		elif tile.rock != null:
-			spawn_rock(pos)
-	for pos in chunk_data.food_locations:
-		spawn_food(pos)
-	if chunk_data.den_location != Vector2.INF:
-		spawn_den()
-
-	return true
+	if generate_den:
+		if chunk_data.coords != Vector2i.ZERO and TerrainMaps.fox_distribution.get_noise_2d(chunk_data.coords.x, chunk_data.coords.y) < 0:
+			spawn_den()
+	elif den_location != Vector2.INF:
+		spawn_den(den_location)
 
 func center() -> Vector2:
 	return global_position * Constants.CHUNK_SIZE * Constants.TILE_SIZE
 
-func generate_biome(x: int, y: int) -> void:
+func generate_biome(x: int, y: int, generate_food: bool = true) -> void:
 	var tile_contents = preload("res://scenes/world/tile_contents.tres")
 	var tile_pos = Constants.tile_to_global(Vector2i(x, y), chunk_data.coords)
 	var biome_noise = TerrainMaps.biome.get_noise_2d(tile_pos.x, tile_pos.y)
@@ -64,21 +45,22 @@ func generate_biome(x: int, y: int) -> void:
 
 	chunk_data.tiles[Vector2(tile_pos)] = tile_contents
 
-	var food_noise = TerrainMaps.food_distribution.get_noise_2d(tile_pos.x, tile_pos.y)
-	var rng = rand_from_seed(food_noise * 10000)[0] / float(2 ** 32)
-	food_noise = remap_range(food_noise, 0, 1) * .7 - .4
-	if rng < max(food_noise, 0.025):
-		spawn_food(tile_pos, chunk_data)
+	if generate_food:
+		var food_noise = TerrainMaps.food_distribution.get_noise_2d(tile_pos.x, tile_pos.y)
+		var rng = rand_from_seed(food_noise * 10000)[0] / float(2 ** 32)
+		food_noise = remap_range(food_noise, 0, 1) * .7 - .4
+		if rng < max(food_noise, 0.025):
+			spawn_food(tile_pos, chunk_data)
 
 func spawn_den(pos := Vector2.INF) -> void:
 	var den = fox_den_scene.instantiate() as Node2D
 	add_child(den)
 	if pos != Vector2.INF:
-		den.position = pos
+		den.global_position = pos
 	else:
 		var jitter = Vector2(randf_range(0, Constants.CHUNK_SIZE * Constants.TILE_SIZE), randf_range(0, Constants.CHUNK_SIZE * Constants.TILE_SIZE))
 		den.position += jitter
-		chunk_data.den_location = den.position
+	den_location = den.global_position
 
 func remap_range(x: float, out_min: float, out_max: float, in_min:=-1.0, in_max:=1.0):
 	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -104,8 +86,7 @@ func spawn_food(pos: Vector2, chunk = null) -> void:
 	var jitter = Vector2(randf_range(0, Constants.TILE_SIZE / 2), randf_range(0, Constants.TILE_SIZE / 2))
 	food.global_position = pos + jitter
 	food.collected.connect(on_food_collected)
-	if chunk:
-		chunk.food_locations.append(food.global_position)
+	food_locations.append(food.global_position)
 
 func spawn_tree(pos: Vector2, tile = null) -> void:
 	var tree: Sprite2D = tree_scene.instantiate()
@@ -127,25 +108,3 @@ func spawn_rock(pos: Vector2, tile = null) -> void:
 
 func on_food_collected(which_food: Food) -> void:
 	chunk_data.food_locations.erase(which_food.global_position)
-
-func load_chunk_data():
-	var save_path = save_root + str(chunk_data.coords.x) + "_" + str(chunk_data.coords.y) + ".tres"
-	if ResourceLoader.exists(save_path):
-		print("loading chunk: ", coords)
-		return ResourceLoader.load(save_path)
-	return null
-
-func save_chunk() -> void:
-	var save_path = save_root + str(coords.x) + "_" + str(coords.y) + ".tscn"
-	print("saving chunk: ", coords)
-	recursive_set_owner(self, self)
-	var chunk_scene = PackedScene.new()
-	chunk_scene.pack(self)
-	ResourceSaver.save(chunk_data, save_path, ResourceSaver.FLAG_BUNDLE_RESOURCES)
-
-
-func recursive_set_owner(node, node_owner = get_tree().get_edited_scene_root()):
-	for child in node.get_children():
-		child.owner = node_owner
-		if child.get_child_count() > 0:
-			recursive_set_owner(child, node_owner)

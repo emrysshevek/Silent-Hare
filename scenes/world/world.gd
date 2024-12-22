@@ -5,7 +5,8 @@ class_name World extends Node2D
 @onready var player := $Player
 
 var tile_size = 32
-var chunks: Dictionary
+var chunk_data: Dictionary = {}
+var active_chunks: Dictionary = {}
 var prev_chunk: Vector2i = Vector2i.MAX
 
 var save_root = "res://save_data/world/"
@@ -28,23 +29,35 @@ func _process(delta: float) -> void:
 
 	# print("entered new chunk: ", curr_chunk)
 	prev_chunk = curr_chunk
-	for key in chunks.keys():
-		if abs(chunks[key].coords.x - curr_chunk.x) > 1 or abs(chunks[key].coords.y - curr_chunk.y) > 1:
+	for key in active_chunks.keys():
+		if abs(active_chunks[key].coords.x - curr_chunk.x) > 1 or abs(active_chunks[key].coords.y - curr_chunk.y) > 1:
 			print("unloading chunk: ", key)
-			chunks[key].queue_free()
-			chunks.erase(key)
+			update_chunk_data(active_chunks[key])
+			active_chunks[key].queue_free()
+			active_chunks.erase(key)
 
 	for i in range(curr_chunk.x - 1, curr_chunk.x + 2):
 		for j in range(curr_chunk.y - 1, curr_chunk.y + 2):
 			var key = Vector2i(i, j)
-			if key not in chunks:	
+			if key not in active_chunks:	
 				print("spawning chunk: ", key)
-				var chunk := load_saved_chunk(key)
-				if chunk == null:
-					chunk = load("res://scenes/world/chunk.tscn").instantiate()
-					add_child(chunk)
-					chunk.generate(Vector2i(i, j)) 
-				chunks[key] = chunk
+				var chunk = load("res://scenes/world/chunk.tscn").instantiate()
+				add_child(chunk)
+				if key in chunk_data:
+					chunk.food_locations = chunk_data[key]["food"]
+					chunk.den_location = chunk_data[key]["den"]
+					chunk.generate(key, false, false)
+				else:
+					chunk.generate(Vector2i(i, j))
+				update_chunk_data(chunk)
+				active_chunks[key] = chunk
+	print(chunk_data)
+
+func update_chunk_data(chunk: Chunk) -> void:
+	chunk_data[chunk.coords] = {
+		"food": chunk.food_locations,
+		"den": chunk.den_location
+	}
 
 func load_saved_chunk(key: Vector2i) -> Chunk:
 	var path = save_root + str(key.x) + "_" + str(key.y) + ".tscn"

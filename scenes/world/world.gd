@@ -4,7 +4,6 @@ class_name World extends Node2D
 
 @onready var player := $Player
 
-var tile_size = 32
 var chunk_data: Dictionary = {}
 var active_chunks: Dictionary = {}
 var prev_chunk: Vector2i = Vector2i.MAX
@@ -46,6 +45,7 @@ func _process(delta: float) -> void:
 				if key in chunk_data:
 					chunk.food_locations = chunk_data[key]["food"]
 					chunk.den_location = chunk_data[key]["den"]
+					chunk.hole_locations = chunk_data[key]["holes"]
 					chunk.generate(key, false, false)
 				else:
 					chunk.generate(Vector2i(i, j))
@@ -55,7 +55,8 @@ func _process(delta: float) -> void:
 func update_chunk_data(chunk: Chunk) -> void:
 	chunk_data[chunk.coords] = {
 		"food": chunk.food_locations,
-		"den": chunk.den_location
+		"den": chunk.den_location,
+		"holes": chunk.hole_locations
 	}
 
 func load_saved_chunk(key: Vector2i) -> Chunk:
@@ -64,6 +65,10 @@ func load_saved_chunk(key: Vector2i) -> Chunk:
 		return load(path).instantiate()
 	else:
 		return null
+
+func add_snow_hole(pos: Vector2) -> void:
+	var chunk = active_chunks[position_to_chunk(player.global_position)]
+	chunk.spawn_hole(pos)
 
 func cell_to_chunk(cell: Vector2i) -> Vector2i:
 	return Vector2i(cell.x / chunk_size, cell.y / chunk_size)

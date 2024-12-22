@@ -1,12 +1,29 @@
 class_name DigState extends PlayerState
 
+var spray_count = 0
+var particles: CPUParticles2D
 
 func enter(_prev_state_path: String, _data := {}):
+	spray_count = 0
+	player.sprite.animation = "hide"
+	player.sprite.play()
+
+	particles = player.get_node("CPUParticles2D")
+	particles.emitting = true
+	get_tree().create_timer(particles.lifetime).timeout.connect(on_timer_timeout)
 
 	if player.what_area == 1:
 		player.food.collect()
 		player.score += 1
-	get_tree().create_timer(.5).timeout.connect(on_timer_timeout)
+
 
 func on_timer_timeout() -> void:
-	finished.emit(IDLE)
+	spray_count += 1
+	if spray_count == 3:
+		var world: World = player.get_parent()
+		world.add_snow_hole(player.global_position)
+		finished.emit(IDLE)
+		return
+
+	particles.emitting = true
+	get_tree().create_timer(particles.lifetime).timeout.connect(on_timer_timeout)

@@ -1,0 +1,16 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://o4f2t3jfqjte"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ctqn0"]
+color = Color(1, 1, 1, 1)
+grow_begin = -50.0
+thickness = 3
+vertical = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_srteq"]
+
+[resource]
+default_font_size = 40
+Button/colors/font_color = Color(0.834615, 0.834614, 0.834614, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/styles/hover = SubResource("StyleBoxLine_ctqn0")
+Button/styles/normal = SubResource("StyleBoxEmpty_srteq")

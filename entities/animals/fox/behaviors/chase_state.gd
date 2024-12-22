@@ -35,7 +35,7 @@ func physics_update(delta: float) -> void:
 		animal.sprite.flip_h = true
 	elif animal.velocity.x > 0:
 		animal.sprite.flip_h = false
-		
+
 	remaining_patience -= delta
 	if remaining_patience <= 0:
 		finished.emit(HOME)
@@ -78,6 +78,7 @@ func handle_chasing_state(delta: float) -> void:
 		target = prey.global_position
 
 	if animal.global_position.distance_to(target) < 8:
+		prey.kill()
 		state = RESTING
 		return
 	

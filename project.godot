@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Silent Hare"
-run/main_scene="res://scenes/world/world.tscn"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 BackgroundMusicManager="*res://components/sound/background_music_manager.tscn"
 Constants="*res://globals/constants.gd"
 TerrainMaps="*res://components/random/noise_maps.tscn"
+Globals="*res://globals/globals.gd"
 
 [debug]
 

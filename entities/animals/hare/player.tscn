@@ -148,7 +148,7 @@ shape = SubResource("RectangleShape2D_jq2l8")
 
 [node name="VisibleArea" parent="." instance=ExtResource("3_jiqeb")]
 visible = false
-collision_layer = 32
+collision_layer = 0
 collision_mask = 128
 
 [node name="HearableArea" parent="." instance=ExtResource("3_jiqeb")]

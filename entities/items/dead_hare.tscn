@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://oyeycwhmihjr"]
+
+[ext_resource type="Texture2D" uid="uid://7sm2s7gdu2wf" path="res://assets/sprites/creatures/hare/hare_dead.png" id="1_80ro1"]
+
+[node name="DeadHare" type="Sprite2D"]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("1_80ro1")

@@ -18,10 +18,29 @@ enum Biome {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.PEACE)
+	player.died.connect(on_player_died)
+	Globals.world = self
+	Globals.player = player
+	Globals.camera = get_node("Camera2D")
 	# prev_chunk = position_to_chunk(player.global_position)
+
+func on_player_died() -> void:
+	var hare: Node2D = load("res://entities/items/dead_hare.tscn").instantiate()
+	add_child(hare)
+	hare.global_position = player.global_position
+	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.MAIN)
+	var tween = create_tween()
+	tween.tween_property(Globals.camera, "zoom", Vector2(1.5, 1.5), 10)
+	tween.finished.connect(on_tween_finished)
+
+func on_tween_finished() -> void:
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 
 func _process(delta: float) -> void:
+	if not is_instance_valid(player):
+		return
+
 	var curr_chunk := position_to_chunk(player.global_position)
 	if curr_chunk == prev_chunk:
 		return

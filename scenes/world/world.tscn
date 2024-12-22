@@ -6,20 +6,19 @@
 [ext_resource type="Shader" path="res://scenes/world/snowfall.gdshader" id="6_bkunl"]
 [ext_resource type="PackedScene" uid="uid://cfig25gierdn8" path="res://entities/habitats/hare_burrow.tscn" id="8_g7k2v"]
 
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ymy6l"]
 shader = ExtResource("6_bkunl")
-shader_parameter/rain_amount = 100.0
+shader_parameter/rain_amount = 200.0
 shader_parameter/near_rain_length = 0.01
 shader_parameter/far_rain_length = 0.01
-shader_parameter/near_rain_width = 0.5
-shader_parameter/far_rain_width = 0.1
+shader_parameter/near_rain_width = 1.0
+shader_parameter/far_rain_width = 0.858
 shader_parameter/near_rain_transparency = 1.0
 shader_parameter/far_rain_transparency = 0.5
 shader_parameter/rain_color = Color(1, 1, 1, 1)
-shader_parameter/base_rain_speed = 0.1
-shader_parameter/additional_rain_speed = 0.1
-shader_parameter/slant = 4.75e-08
+shader_parameter/base_rain_speed = 0.171
+shader_parameter/additional_rain_speed = 0.333
+shader_parameter/slant = -0.09
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true

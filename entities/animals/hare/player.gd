@@ -1,6 +1,8 @@
 
 class_name Player extends Animal
 
+signal died()
+
 @onready var audio: AudioStreamPlayer2D = get_node("AudioStreamPlayer2D")
 @onready var hearable: SenseArea = get_node("HearableArea")
 
@@ -8,9 +10,7 @@ var food = null
 var what_area = 2 
 var score = 0
 
-
-
-func _physics_process(_delta: float) -> void:	
+func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 
@@ -36,3 +36,7 @@ func _on_hearing_area_animal_exited_sense_range(which_sense: SenseArea, which_an
 	
 	print("animal entered player range")
 	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.PEACE)
+
+func kill() -> void:
+	died.emit()
+	queue_free()

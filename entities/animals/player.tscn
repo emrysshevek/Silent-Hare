@@ -20,6 +20,7 @@ collision_layer = 64
 collision_mask = 13
 motion_mode = 1
 script = ExtResource("1_nqeti")
+hearing_range = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jq2l8")
@@ -27,6 +28,7 @@ shape = SubResource("RectangleShape2D_jq2l8")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3
 texture = ExtResource("2_0fpsg")
+offset = Vector2(0, -7.13)
 
 [node name="CollectionArea" type="Area2D" parent="."]
 collision_mask = 9
@@ -35,10 +37,12 @@ collision_mask = 9
 shape = SubResource("RectangleShape2D_jq2l8")
 
 [node name="VisibleArea" parent="." instance=ExtResource("3_jiqeb")]
+visible = false
 collision_layer = 32
 collision_mask = 128
 
 [node name="HearableArea" parent="." instance=ExtResource("3_jiqeb")]
+visible = false
 collision_layer = 16
 collision_mask = 256
 
@@ -79,7 +83,22 @@ one_shot = true
 [node name="Duration" type="Timer" parent="thump"]
 wait_time = 20.0
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = 2.811
+bus = &"Sounds"
+
+[node name="HearingArea" parent="." instance=ExtResource("3_jiqeb")]
+collision_layer = 256
+collision_mask = 16
+
+[node name="CollisionShape2D" parent="HearingArea" index="0"]
+debug_color = Color(0.587097, 0.548436, 0.0575245, 0.42)
+
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
 [connection signal="area_exited" from="CollectionArea" to="." method="_on_collection_area_area_exited"]
 [connection signal="timeout" from="thump/CoolDown" to="thump" method="_on_cool_down_timeout"]
 [connection signal="timeout" from="thump/Duration" to="thump" method="_on_duration_timeout"]
+[connection signal="animal_entered_sense_range" from="HearingArea" to="." method="_on_hearing_area_animal_entered_sense_range"]
+[connection signal="animal_exited_sense_range" from="HearingArea" to="." method="_on_hearing_area_animal_exited_sense_range"]
+
+[editable path="HearingArea"]

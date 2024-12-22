@@ -11,5 +11,6 @@ func exit() -> void:
 	player.hearable.monitorable = true
 
 func physics_update(delta: float) -> void:
-	if Input.is_action_just_released("hide"):
+	player.stamina -= delta
+	if player.stamina <= 0 or Input.is_action_just_released("hide"):
 		finished.emit(IDLE)

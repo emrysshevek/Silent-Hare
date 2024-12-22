@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bq1d1lyxsd14k"]
+[gd_scene load_steps=33 format=3 uid="uid://bq1d1lyxsd14k"]
 
 [ext_resource type="Script" path="res://entities/animals/hare/player.gd" id="1_nqeti"]
 [ext_resource type="Texture2D" uid="uid://cgrkw31r54bf6" path="res://assets/sprites/creatures/hare/hare_stand.png" id="2_0fpsg"]
@@ -21,6 +21,11 @@
 [ext_resource type="Texture2D" uid="uid://drucvpwlt2h7s" path="res://assets/sprites/creatures/hare/hare_thump2.png" id="11_wseso"]
 [ext_resource type="Texture2D" uid="uid://x4juresca0wj" path="res://assets/sprites/creatures/hare/hare_thump3.png" id="12_rt2ty"]
 [ext_resource type="Script" path="res://entities/animals/hare/behavior/hide_state.gd" id="21_10mur"]
+[ext_resource type="Texture2D" uid="uid://bj3ccet35u46l" path="res://assets/progressbar/bar_empty.png" id="22_s6bwe"]
+[ext_resource type="Texture2D" uid="uid://bo13fk2u2obdh" path="res://assets/progressbar/bar_14.png" id="23_7mt2r"]
+[ext_resource type="Texture2D" uid="uid://dvqikgywmmi4j" path="res://assets/progressbar/bar_half.png" id="24_ppv2q"]
+[ext_resource type="Texture2D" uid="uid://17uw2ww6x17k" path="res://assets/progressbar/bar_34.png" id="25_5dxcw"]
+[ext_resource type="Texture2D" uid="uid://cok4e86nqxote" path="res://assets/progressbar/bar_full.png" id="26_ipws6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jq2l8"]
 size = Vector2(16, 16)
@@ -120,6 +125,29 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Gradient" id="Gradient_jm5xp"]
 colors = PackedColorArray(1, 1, 1, 0.866667, 1, 1, 1, 0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uhbtm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_s6bwe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_7mt2r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_ppv2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_5dxcw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_ipws6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
@@ -244,6 +272,12 @@ color_ramp = SubResource("Gradient_jm5xp")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
+
+[node name="ProgressBar" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 4)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_uhbtm")
+frame = 4
 
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
 [connection signal="area_exited" from="CollectionArea" to="." method="_on_collection_area_area_exited"]

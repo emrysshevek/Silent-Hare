@@ -7,12 +7,15 @@ func enter(_prev_state_path: String, _data := {}):
 	player.hearable.set_radius(player.hearable_range)
 
 func physics_update(delta: float) -> void:
-	if Input.is_action_pressed("hide"):
+	if player.stamina < player.max_stamina:
+		player.stamina = min(player.stamina + delta * 2, player.max_stamina)
+
+	if not player.exhausted and Input.is_action_pressed("hide"):
 		finished.emit(HIDE)
-	if Input.is_action_pressed("dig"):
+	if not player.exhausted and Input.is_action_pressed("dig"):
 		finished.emit(DIG)
-	if Input.is_action_pressed("thump"):
+	if not player.exhausted and Input.is_action_pressed("thump"):
 		finished.emit(THUMP)
-	if Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("up") or Input.is_action_pressed("down"):
+	if not player.exhausted and Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("up") or Input.is_action_pressed("down"):
 		finished.emit(MOVE)
 	

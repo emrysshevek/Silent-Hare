@@ -21,8 +21,8 @@ func physics_update(delta: float) -> void:
 	elif direction.x > 0:
 		player.sprite.flip_h = false
 
-	if Input.is_action_pressed("sprint") and player.stamina > 0:
-		player.stamina -= delta
+	if Input.is_action_pressed("sprint") and not player.exhausted:
+		player.stamina -= .27
 		player.hearable.set_radius(player.hearable_range * 3)
 		var tween = get_tree().create_tween()
 		tween.tween_property(player, "position", player.position + (direction * 16), .27)
@@ -36,7 +36,7 @@ func physics_update(delta: float) -> void:
 		sprite.play()
 		in_motion = true
 	else:
-		player.stamina += delta * 2
+		player.stamina = min(player.stamina + delta * 2, player.max_stamina)
 		player.hearable.set_radius(player.hearable_range * 2)
 		var tween = get_tree().create_tween()
 		tween.tween_property(player, "position", player.position + (direction * 16), .625)

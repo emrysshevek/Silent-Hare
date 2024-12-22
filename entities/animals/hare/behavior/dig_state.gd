@@ -4,6 +4,7 @@ var spray_count = 0
 var particles: CPUParticles2D
 
 func enter(_prev_state_path: String, _data := {}):
+	player.stamina -= .5
 	spray_count = 0
 	player.sprite.animation = "hide"
 	player.sprite.play()

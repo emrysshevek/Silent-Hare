@@ -12,14 +12,19 @@ func physics_update(delta: float) -> void:
 		return
 
 	var direction = Input.get_vector("left", "right", "up", "down")
+	if direction == Vector2.ZERO:
+		finished.emit(IDLE)
+		return 
+
 	if direction.x < 0:
 		player.sprite.flip_h = true
 	elif direction.x > 0:
 		player.sprite.flip_h = false
 
 	if Input.is_action_pressed("sprint"):
+		player.hearable.set_radius(player.hearable_range * 3)
 		var tween = get_tree().create_tween()
-		tween.tween_property(player, "position", player.position + (direction * 24), .27)
+		tween.tween_property(player, "position", player.position + (direction * 16), .27)
 		tween.set_ease(Tween.EASE_IN)
 		tween.set_trans(Tween.TRANS_BACK)
 		get_tree().create_timer(.27).timeout.connect(on_timer_timeout)
@@ -31,6 +36,7 @@ func physics_update(delta: float) -> void:
 			player.audio.stream = player.run_sound
 			player.audio.play()
 	else:
+		player.hearable.set_radius(player.hearable_range * 2)
 		var tween = get_tree().create_tween()
 		tween.tween_property(player, "position", player.position + (direction * 16), .625)
 		tween.set_ease(Tween.EASE_IN)
@@ -46,4 +52,3 @@ func physics_update(delta: float) -> void:
 
 func on_timer_timeout() -> void:
 	in_motion = false
-	finished.emit(IDLE)

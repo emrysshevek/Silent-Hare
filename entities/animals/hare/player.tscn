@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bq1d1lyxsd14k"]
+[gd_scene load_steps=27 format=3 uid="uid://bq1d1lyxsd14k"]
 
 [ext_resource type="Script" path="res://entities/animals/hare/player.gd" id="1_nqeti"]
 [ext_resource type="Texture2D" uid="uid://cgrkw31r54bf6" path="res://assets/sprites/creatures/hare/hare_stand.png" id="2_0fpsg"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://df1c8n6typtan" path="res://assets/sprites/creatures/hare/hare_thump1.png" id="10_lyii4"]
 [ext_resource type="Texture2D" uid="uid://drucvpwlt2h7s" path="res://assets/sprites/creatures/hare/hare_thump2.png" id="11_wseso"]
 [ext_resource type="Texture2D" uid="uid://x4juresca0wj" path="res://assets/sprites/creatures/hare/hare_thump3.png" id="12_rt2ty"]
+[ext_resource type="Script" path="res://entities/animals/hare/behavior/hide_state.gd" id="21_10mur"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jq2l8"]
 size = Vector2(16, 16)
@@ -122,10 +123,11 @@ colors = PackedColorArray(1, 1, 1, 0.866667, 1, 1, 1, 0)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
-collision_mask = 13
+collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_nqeti")
-hearing_range = 200.0
+hearing_range = 128.0
+hearable_range = 8.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jq2l8")
@@ -150,7 +152,6 @@ collision_layer = 32
 collision_mask = 128
 
 [node name="HearableArea" parent="." instance=ExtResource("3_jiqeb")]
-visible = false
 collision_layer = 16
 collision_mask = 256
 
@@ -216,6 +217,9 @@ script = ExtResource("9_50ho8")
 
 [node name="Thump" type="Node" parent="StateMachine"]
 script = ExtResource("10_gjd2x")
+
+[node name="Hide" type="Node" parent="StateMachine"]
+script = ExtResource("21_10mur")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false

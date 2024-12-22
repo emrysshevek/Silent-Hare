@@ -3,6 +3,8 @@ class_name ThumpState extends PlayerState
 var thump_component = null
 
 func enter(_prev_state_path: String, _data := {}):
+	player.hearable.set_radius(player.hearable_range * 3)
+	
 	if thump_component == null:
 		thump_component = player.get_node("thump")
 		print("thump component: ", thump_component)

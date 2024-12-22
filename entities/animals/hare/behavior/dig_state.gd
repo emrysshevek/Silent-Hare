@@ -7,6 +7,7 @@ func enter(_prev_state_path: String, _data := {}):
 	spray_count = 0
 	player.sprite.animation = "hide"
 	player.sprite.play()
+	player.hearable.set_radius(player.hearable_range * 3)
 
 	particles = player.get_node("CPUParticles2D")
 	particles.emitting = true

@@ -37,7 +37,6 @@ func _ready() -> void:
 		vision.animal_exited_sense_range.connect(on_animal_exited_range)
 	if hearing:
 		hearing.set_radius(hearing_range)
-		print("hearing radius: ", hearing.get_radius())
 		hearing.animal_entered_sense_range.connect(on_animal_entered_range)
 		hearing.animal_exited_sense_range.connect(on_animal_exited_range)
 

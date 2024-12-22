@@ -4,9 +4,11 @@ class_name Chunk extends Node2D
 @onready var tree_scene = load("res://entities/items/tree.tscn")
 @onready var rock_scene = load("res://entities/items/rock.tscn")
 @onready var food_scene = load("res://entities/items/food.tscn")
+@onready var fox_den_scene = load("res://entities/habitats/fox_den.tscn")
 
 var coords: Vector2i
 var foods: Array[Food]
+var dens: Array[Habitat]
 var terrain: Dictionary
 
 func generate(at: Vector2i) -> void:
@@ -34,9 +36,28 @@ func generate_biome(x: int, y: int) -> void:
 	var food_noise = TerrainMaps.food_distribution.get_noise_2d(tile_pos.x, tile_pos.y)
 	var rng = rand_from_seed(food_noise * 10000)[0] / float(2 ** 32)
 	food_noise = remap_range(food_noise, 0, 1) * .7 - .4
-	print(rng, ", ", food_noise)
+	# print(rng, ", ", food_noise)
 	if rng < max(food_noise, 0.025):
 		spawn_food(tile_pos)
+	
+	# var den = fox_den_scene.instantiate() as Node2D
+	# add_child(den)
+
+func spawn_dens() -> void:
+	var den = fox_den_scene.instantiate() as Node2D
+	add_child(den)
+	# var step: float = Constants.CHUNK_SIZE * .3
+	# for i in range(0, Constants.CHUNK_SIZE, step):
+	# 	for j in range(0, Constants.CHUNK_SIZE + 1, step):
+	# 		# var pos = ground_layer.map_to_local(Vector2i(i + randi_range(0, step_size.x), j + randi_range(0, step_size.y)))
+	# 		var pos = Vector2i(i + step / 2, j + step / 2)
+	# 		var offset = Vector2(randi_range(0, step), randi_range(0, step))
+	# 		pos = Constants.tile_to_global(pos, coords) + offset
+			
+	# 		if pos.distance_to(Vector2i.ZERO) > 128:
+	# 			var den = fox_den_scene.instantiate() as Node2D
+	# 			add_child(den)
+	# 			den.position = pos
 
 func remap_range(x: float, out_min: float, out_max: float, in_min:=-1.0, in_max:=1.0):
 	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;

@@ -2,7 +2,7 @@ extends Node
 
 const TILE_SIZE := 16
 const TILE_CENTER := Vector2(16, 16)
-const CHUNK_SIZE := 32
+const CHUNK_SIZE := 16
 
 func position_to_tile(position: Vector2) -> Vector2i:
 	return Vector2i(floor(position.x / (CHUNK_SIZE * TILE_SIZE)), floor(position.y / (CHUNK_SIZE * TILE_SIZE)))

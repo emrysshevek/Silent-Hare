@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=4 uid="uid://38iu61crugdj"]
+[gd_scene load_steps=12 format=4 uid="uid://38iu61crugdj"]
 
 [ext_resource type="Script" path="res://scenes/world/world.gd" id="1_vfwjc"]
 [ext_resource type="TileSet" uid="uid://c22wd543s7g3g" path="res://assets/environment/tiles/snow_tiles.tres" id="4_0e6qm"]
 [ext_resource type="PackedScene" uid="uid://bq1d1lyxsd14k" path="res://entities/animals/hare/player.tscn" id="4_dth15"]
+[ext_resource type="Texture2D" uid="uid://71288pm03qrd" path="res://assets/environment/food.png" id="5_2mej1"]
 [ext_resource type="Shader" path="res://scenes/world/snowfall.gdshader" id="6_bkunl"]
 [ext_resource type="PackedScene" uid="uid://cfig25gierdn8" path="res://entities/habitats/hare_burrow.tscn" id="8_g7k2v"]
 
@@ -483,15 +484,57 @@ z_index = -1
 
 [node name="Player" parent="." instance=ExtResource("4_dth15")]
 y_sort_enabled = true
-walk_speed = null
-run_speed = null
-turn_speed = null
-vision_range = null
-visible_range = null
 hearable_range = null
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NightOverlay" type="ColorRect" parent="UILayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/Control/MarginContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("5_2mej1")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="UILayer/Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "0/25"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

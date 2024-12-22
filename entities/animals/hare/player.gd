@@ -2,12 +2,15 @@
 class_name Player extends Animal
 
 signal died()
+signal score_changed()
+signal returned()
 
 @onready var hearable: SenseArea = get_node("HearableArea")
 
 var food = null
 var what_area = 2 
 var score = 0
+var stamina := 7.0
 
 var walk_sound: AudioStream = preload("res://assets/sounds/Hair/Hair Walk.mp3")
 var run_sound: AudioStream = preload("res://assets/sounds/Hair/Hair Run.mp3")
@@ -16,6 +19,9 @@ var thump_sound: AudioStream = preload("res://assets/sounds/Hair/Thump.mp3")
 var thump_success_sound: AudioStream = preload("res://assets/sounds/Hair/Thump if founds.mp3")
 
 func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("dig") and global_position.distance_to(Vector2.ZERO) < 16:
+		returned.emit()
+
 	move_and_slide()
 
 

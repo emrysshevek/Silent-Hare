@@ -16,6 +16,7 @@ func enter(_prev_state_path: String, _data := {}):
 	if player.what_area == 1:
 		player.food.collect()
 		player.score += 1
+		player.score_changed.emit()
 	
 	if not player.audio.playing or player.audio.stream != player.dig_sound:
 		player.audio.stream = player.dig_sound

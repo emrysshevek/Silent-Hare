@@ -15,6 +15,8 @@ signal animal_exited_hearing(which_animal : Animal)
 @export var visible_range : float = 16
 @export var hearable_range : float = 16
 
+@export var home: Habitat
+
 @onready var vision : SenseArea = get_node_or_null("VisionArea")
 @onready var hearing : SenseArea = get_node_or_null("HearingArea")
 
@@ -27,8 +29,6 @@ var prey_in_hearing: Animal = null
 var in_base_area := false
 var in_wander_area := false
 var in_chase_area := false
-
-var home: Habitat
 
 func _ready() -> void:
 	if vision:

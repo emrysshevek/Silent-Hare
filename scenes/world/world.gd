@@ -3,10 +3,13 @@ class_name World extends Node2D
 @export var chunk_size := 8
 
 @onready var player := $Player
+@onready var ap: AnimationPlayer = $AnimationPlayer
 
 var chunk_data: Dictionary = {}
 var active_chunks: Dictionary = {}
 var prev_chunk: Vector2i = Vector2i.MAX
+var day_duration: float = 300
+var day_remaining: float = 300
 
 var save_root = "res://save_data/world/"
 
@@ -19,10 +22,37 @@ enum Biome {
 func _ready() -> void:
 	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.PEACE)
 	player.died.connect(on_player_died)
+	player.score_changed.connect(on_player_score_changed)
+	player.returned.connect(on_player_returned)
 	Globals.world = self
 	Globals.player = player
 	Globals.camera = get_node("Camera2D")
-	# prev_chunk = position_to_chunk(player.global_position)
+
+func start_day() -> void:
+	for key in active_chunks.keys():
+		active_chunks.erase(key)
+	player.score = 0
+	player.score_changed.emit()
+	ap.play("intro")
+	player.position = Vector2.ZERO
+	player.show()
+	prev_chunk = Vector2i.MAX
+
+func end_day() -> void:
+	day_remaining = day_duration
+	ap.play("wipe")
+	player.hide()
+	get_tree().create_timer(1.5).timeout.connect(start_day)
+
+func on_player_returned() -> void:
+	if player.score >= 25:
+		end_day()
+	else:
+		player.kill()
+
+func on_player_score_changed() -> void:
+	var text = $UILayer/Control/MarginContainer/HBoxContainer/Label
+	text.text = str(player.score) + "/25"
 
 func on_player_died() -> void:
 	var hare: Node2D = load("res://entities/items/dead_hare.tscn").instantiate()
@@ -33,7 +63,6 @@ func on_player_died() -> void:
 	tween.tween_property(Globals.camera, "zoom", Vector2(1.5, 1.5), 10)
 	tween.finished.connect(on_tween_finished)
 	
-
 func on_tween_finished() -> void:
 	var ap: AnimationPlayer = get_node("AnimationPlayer")
 	ap.play("wipe")
@@ -41,6 +70,15 @@ func on_tween_finished() -> void:
 
 func quit(name) -> void:
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
+
+func _physics_process(delta: float) -> void:
+	day_remaining -= delta
+	if day_remaining <= 0:
+		if is_instance_valid(player):
+			player.kill()
+	
+	var tint: ColorRect = $UILayer/Control/NightOverlay
+	tint.color = Color.from_hsv(0, 0, 0, 1 - day_remaining / day_duration)
 
 
 func _process(delta: float) -> void:

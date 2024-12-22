@@ -29,7 +29,8 @@ frequency = 1.0
 fractal_type = 0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lripx"]
-noise_type = 0
+noise_type = 5
+frequency = 1.0
 fractal_type = 0
 
 [node name="NoiseMaps" type="Node"]

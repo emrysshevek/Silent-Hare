@@ -17,13 +17,16 @@ enum Biome {
 func _ready() -> void:
 	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.PEACE)
 	prev_chunk = position_to_chunk(player.global_position)
+	# var den = load("res://entities/habitats/fox_den.tscn").instantiate() as Node2D
+	# add_child(den)
+	# den.position = Vector2(100, 100)
 
 func _process(delta: float) -> void:
 	var curr_chunk := position_to_chunk(player.global_position)
 	if len(chunks) == 9 and curr_chunk == prev_chunk:
 		return
 
-	print("entered new chunk: ", curr_chunk)
+	# print("entered new chunk: ", curr_chunk)
 	prev_chunk = curr_chunk
 	for key in chunks.keys():
 		if abs(chunks[key].coords.x - curr_chunk.x) > 1:

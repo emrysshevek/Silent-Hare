@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://d30488hgaexiy"]
+[gd_scene load_steps=7 format=3 uid="uid://d30488hgaexiy"]
 
 [ext_resource type="Script" path="res://scenes/world/chunk.gd" id="1_3dwcr"]
+[ext_resource type="TileSet" uid="uid://c22wd543s7g3g" path="res://assets/environment/tiles/snow_tiles.tres" id="2_w5o6i"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8gpmv"]
 noise_type = 2
@@ -43,3 +44,6 @@ visible = false
 texture_filter = 1
 position = Vector2(32, 0)
 texture = SubResource("NoiseTexture2D_7oq70")
+
+[node name="GroundLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("2_w5o6i")

@@ -4,6 +4,7 @@ const IDLE := "Idle"
 const MOVE := "Move"
 const DIG := "Dig"
 const THUMP := "Thump"
+const HIDE := "Hide"
 
 var player: Player
 

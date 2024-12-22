@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bja8agmoh50qi"]
+
+[ext_resource type="Shader" path="res://scenes/world/snowfall.gdshader" id="1_gtk3a"]
+[ext_resource type="Script" path="res://scenes/world/snowfall.gd" id="2_44twc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mp66b"]
+shader = ExtResource("1_gtk3a")
+shader_parameter/rain_amount = 196.705
+shader_parameter/near_rain_length = 0.01
+shader_parameter/far_rain_length = 0.01
+shader_parameter/near_rain_width = 0.707
+shader_parameter/far_rain_width = 0.267
+shader_parameter/near_rain_transparency = 1.0
+shader_parameter/far_rain_transparency = 0.5
+shader_parameter/rain_color = Color(0.8, 0.8, 0.8, 1)
+shader_parameter/base_rain_speed = 0.166
+shader_parameter/additional_rain_speed = 0.207
+shader_parameter/slant = -1.0
+
+[node name="Snowfall" type="ColorRect"]
+material = SubResource("ShaderMaterial_mp66b")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+script = ExtResource("2_44twc")

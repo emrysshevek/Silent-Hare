@@ -24,6 +24,7 @@ var tracks: Array[AudioStream] = [
 	load("res://assets/music/Close.mp3"),
 	load("res://assets/music/Chase.mp3"),
 	load("res://assets/music/Chase Very Close.mp3"),
+	load("res://assets/music/Death.mp3")
 ]
 
 # crossfades to a new audio stream

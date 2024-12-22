@@ -14,6 +14,11 @@ func enter(prev_state_path: String, data := {}):
     prey_in_range = null
 
 func physics_update(delta: float) -> void:
+    if animal.velocity.x < 0:
+        animal.sprite.flip_h = true
+    elif animal.velocity.x > 0:
+        animal.sprite.flip_h = false
+
     if animal.prey_in_vision:
         finished.emit(CHASE, {"prey": animal.prey_in_vision})
     elif animal.prey_in_hearing:
@@ -21,7 +26,7 @@ func physics_update(delta: float) -> void:
 
     wait_time -= delta
     if wait_time <= 0 and not walking:
-        if randf() < .15:
+        if randf() < .1:
             finished.emit(HOME)
         walking = true
         target = choose_target()
@@ -31,9 +36,17 @@ func physics_update(delta: float) -> void:
 
     if animal.global_position.distance_to(target) < 2:
         walking = false
+        animal.sprite.animation = "idle"
+        animal.sprite.play()
+        animal.audio.stop()
         wait_time = randf_range(1, 2)
         animal.velocity = Vector2.ZERO
     else:
+        if not animal.audio.playing or animal.audio.stream != animal.walk_sound:
+            animal.audio.stream = animal.walk_sound
+            animal.audio.play()
+
+        animal.sprite.animation = "walk"
         animal.velocity = animal.global_position.direction_to(target) * animal.walk_speed
 
 func choose_target() -> Vector2:

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bccwoaulky7n1"]
+
+[ext_resource type="Texture2D" uid="uid://becwfrfurlt5e" path="res://assets/sprites/creatures/fox/footprint_fox.png" id="1_aovxg"]
+
+[node name="FoxPrint" type="Sprite2D"]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("1_aovxg")

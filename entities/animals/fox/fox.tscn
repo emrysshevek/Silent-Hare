@@ -1,36 +1,85 @@
-[gd_scene load_steps=10 format=3 uid="uid://jurclf7d20g1"]
+[gd_scene load_steps=17 format=3 uid="uid://jurclf7d20g1"]
 
-[ext_resource type="Script" path="res://entities/animals/animal.gd" id="1_v0i27"]
+[ext_resource type="Script" path="res://entities/animals/fox/fox.gd" id="1_61s3q"]
 [ext_resource type="Texture2D" uid="uid://nudsm71dpks6" path="res://assets/sprites/creatures/fox/fox_stand.png" id="2_2p4kx"]
+[ext_resource type="PackedScene" uid="uid://bccwoaulky7n1" path="res://entities/items/fox_print.tscn" id="2_eub1d"]
 [ext_resource type="PackedScene" uid="uid://0met6vpi0caw" path="res://components/sense/sense_area.tscn" id="2_rjbsa"]
+[ext_resource type="Texture2D" uid="uid://bdowdyc6buco7" path="res://assets/sprites/creatures/fox/fox_move1.png" id="3_oogr2"]
 [ext_resource type="Script" path="res://components/state_machine/state_machine.gd" id="4_ujj3l"]
+[ext_resource type="Texture2D" uid="uid://b72u1q04lwmou" path="res://assets/sprites/creatures/fox/fox_move2.png" id="4_ukhtj"]
 [ext_resource type="Script" path="res://entities/animals/fox/behaviors/home_state.gd" id="5_qeket"]
+[ext_resource type="Texture2D" uid="uid://kf5kw6f75ulg" path="res://assets/sprites/creatures/fox/fox_move3.png" id="5_unojh"]
+[ext_resource type="Texture2D" uid="uid://no1xuglkbs6n" path="res://assets/sprites/creatures/fox/fox_move4.png" id="6_h3b4e"]
 [ext_resource type="Script" path="res://entities/animals/fox/behaviors/wander_state.gd" id="6_ieek8"]
 [ext_resource type="Script" path="res://entities/animals/fox/behaviors/chase_state.gd" id="7_fotcy"]
 [ext_resource type="PackedScene" uid="uid://c5r7cpgp1mtmj" path="res://components/sense/sensable_area.tscn" id="8_kpuou"]
+[ext_resource type="AudioStream" uid="uid://dkmll7k8n0rio" path="res://assets/sounds/Fox/Bite.mp3" id="13_ku48m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smwkv"]
 size = Vector2(16, 16)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_jb0hr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2p4kx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_oogr2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ukhtj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_unojh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_h3b4e")
+}],
+"loop": true,
+"name": &"run",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_oogr2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ukhtj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_unojh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_h3b4e")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]
+
 [node name="Fox" type="CharacterBody2D"]
 collision_layer = 68
-script = ExtResource("1_v0i27")
-walk_speed = null
-run_speed = 45.0
-turn_speed = 15.0
-vision_range = 32.0
-hearing_range = 48.0
-visible_range = null
-hearable_range = 1.0
+script = ExtResource("1_61s3q")
+footprint_scene = ExtResource("2_eub1d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_smwkv")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
-texture = ExtResource("2_2p4kx")
+sprite_frames = SubResource("SpriteFrames_jb0hr")
+animation = &"run"
+frame = 3
+frame_progress = 0.361185
 
 [node name="VisionArea" parent="." instance=ExtResource("2_rjbsa")]
+visible = false
 collision_layer = 128
 collision_mask = 32
 
@@ -53,3 +102,10 @@ script = ExtResource("7_fotcy")
 [node name="SensableArea" parent="." instance=ExtResource("8_kpuou")]
 collision_layer = 16
 collision_mask = 0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+max_distance = 250.0
+attenuation = 0.554785
+
+[node name="BiteSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_ku48m")

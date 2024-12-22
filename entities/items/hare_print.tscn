@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn6171yx844lf"]
+
+[ext_resource type="Texture2D" uid="uid://o5u8m5v4d2pn" path="res://assets/sprites/creatures/hare/footprint_hare.png" id="1_4yw2f"]
+
+[node name="HarePrint" type="Sprite2D"]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("1_4yw2f")

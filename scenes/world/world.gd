@@ -8,9 +8,9 @@ class_name World extends Node2D
 var chunk_data: Dictionary = {}
 var active_chunks: Dictionary = {}
 var prev_chunk: Vector2i = Vector2i.MAX
-var day_duration: float = 300
-var day_remaining: float = 300
-var min_score = 15
+var day_duration: float = 600
+var day_remaining: float = 600
+var min_score = 10
 var days_survived = 0
 var game_over = false
 var started = false
@@ -70,7 +70,8 @@ func on_player_died() -> void:
 	tween.finished.connect(on_zoom_finished)
 	var end = $UILayer/Control/Death/Label
 	end.text = "You survived " + str(days_survived) + " day(s)"
-	$UILayer/Control.show()
+	$UILayer/Control/Death.show()
+	ap.play("end")
 
 func on_zoom_finished() -> void:
 	game_over = true

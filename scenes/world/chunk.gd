@@ -24,7 +24,7 @@ func generate(at: Vector2i, generate_food: bool = true, generate_den: bool = tru
 			generate_biome(i, j, generate_food)
 
 	if generate_den:
-		if chunk_data.coords != Vector2i.ZERO and TerrainMaps.fox_distribution.get_noise_2d(chunk_data.coords.x, chunk_data.coords.y) < 0:
+		if chunk_data.coords != Vector2i.ZERO and TerrainMaps.fox_distribution.get_noise_2d(chunk_data.coords.x, chunk_data.coords.y) < 1:
 			spawn_den()
 	elif den_location != Vector2.INF:
 		spawn_den(den_location)

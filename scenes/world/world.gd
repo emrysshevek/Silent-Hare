@@ -8,6 +8,8 @@ var tile_size = 32
 var chunks: Dictionary
 var prev_chunk: Vector2i = Vector2i.MAX
 
+var save_root = "res://save_data/world/"
+
 enum Biome {
 	SNOW,
 	FOREST
@@ -37,10 +39,19 @@ func _process(delta: float) -> void:
 			var key = Vector2i(i, j)
 			if key not in chunks:	
 				print("spawning chunk: ", key)
-				var chunk: Chunk = load("res://scenes/world/chunk.tscn").instantiate()
-				add_child(chunk)
-				chunk.generate(Vector2i(i, j)) 
+				var chunk := load_saved_chunk(key)
+				if chunk == null:
+					chunk = load("res://scenes/world/chunk.tscn").instantiate()
+					add_child(chunk)
+					chunk.generate(Vector2i(i, j)) 
 				chunks[key] = chunk
+
+func load_saved_chunk(key: Vector2i) -> Chunk:
+	var path = save_root + str(key.x) + "_" + str(key.y) + ".tscn"
+	if ResourceLoader.exists(path):
+		return load(path).instantiate()
+	else:
+		return null
 
 func cell_to_chunk(cell: Vector2i) -> Vector2i:
 	return Vector2i(cell.x / chunk_size, cell.y / chunk_size)

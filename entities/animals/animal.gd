@@ -33,12 +33,16 @@ var home: Habitat
 func _ready() -> void:
 	if vision:
 		vision.set_radius(vision_range)
-		vision.animal_entered_sense_range.connect(on_animal_entered_range)
-		vision.animal_exited_sense_range.connect(on_animal_exited_range)
+		if not vision.animal_entered_sense_range.is_connected(on_animal_entered_range):
+			vision.animal_entered_sense_range.connect(on_animal_entered_range)
+		if not vision.animal_exited_sense_range.is_connected(on_animal_exited_range):
+			vision.animal_exited_sense_range.connect(on_animal_exited_range)
 	if hearing:
 		hearing.set_radius(hearing_range)
-		hearing.animal_entered_sense_range.connect(on_animal_entered_range)
-		hearing.animal_exited_sense_range.connect(on_animal_exited_range)
+		if not hearing.animal_entered_sense_range.is_connected(on_animal_entered_range):
+			hearing.animal_entered_sense_range.connect(on_animal_entered_range)
+		if not hearing.animal_exited_sense_range.is_connected(on_animal_exited_range):
+			hearing.animal_exited_sense_range.connect(on_animal_exited_range)
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()

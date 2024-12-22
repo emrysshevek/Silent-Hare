@@ -10,7 +10,13 @@ size = Vector2(16, 16)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 64
 script = ExtResource("1_nqeti")
+walk_speed = null
+run_speed = null
+turn_speed = null
+vision_range = null
 hearing_range = 200.0
+visible_range = null
+hearable_range = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jq2l8")

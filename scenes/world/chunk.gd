@@ -14,15 +14,12 @@ var den_location = null
 var terrains: Dictionary
 
 func _exit_tree() -> void:
-	save_chunk_data()
+	save_chunk()
 
 func generate(at: Vector2i) -> void:
 	coords = at
 	chunk_data.coords = at
 	global_position = Constants.chunk_to_global(chunk_data.coords)
-
-	if generate_from_save():
-		return
 	
 	for i in range(Constants.CHUNK_SIZE):
 		for j in range(Constants.CHUNK_SIZE):
@@ -138,7 +135,17 @@ func load_chunk_data():
 		return ResourceLoader.load(save_path)
 	return null
 
-func save_chunk_data() -> void:
+func save_chunk() -> void:
+	var save_path = save_root + str(coords.x) + "_" + str(coords.y) + ".tscn"
 	print("saving chunk: ", coords)
-	var save_path = save_root + str(coords.x) + "_" + str(coords.y) + ".tres"
+	recursive_set_owner(self, self)
+	var chunk_scene = PackedScene.new()
+	chunk_scene.pack(self)
 	ResourceSaver.save(chunk_data, save_path, ResourceSaver.FLAG_BUNDLE_RESOURCES)
+
+
+func recursive_set_owner(node, node_owner = get_tree().get_edited_scene_root()):
+	for child in node.get_children():
+		child.owner = node_owner
+		if child.get_child_count() > 0:
+			recursive_set_owner(child, node_owner)

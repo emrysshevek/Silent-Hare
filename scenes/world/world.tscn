@@ -34,6 +34,12 @@ z_index = -1
 
 [node name="Player" parent="." instance=ExtResource("4_dth15")]
 y_sort_enabled = true
+walk_speed = null
+run_speed = null
+turn_speed = null
+vision_range = null
+visible_range = null
+hearable_range = null
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")

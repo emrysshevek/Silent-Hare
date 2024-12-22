@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://nkfcx0vtnrab"]
+
+[ext_resource type="Texture2D" uid="uid://brudynqwu8g6t" path="res://assets/environment/snow_hole.png" id="1_5bmae"]
+
+[node name="SnowHole" type="Sprite2D"]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("1_5bmae")

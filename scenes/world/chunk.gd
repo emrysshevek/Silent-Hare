@@ -11,6 +11,7 @@ var chunk_data = preload("res://scenes/world/chunk_data.tres")
 var coords: Vector2i
 var food_locations: Array[Vector2]
 var den_location: Vector2 = Vector2.INF
+var hole_locations: Array[Vector2]
 var terrains: Dictionary
 
 func generate(at: Vector2i, generate_food: bool = true, generate_den: bool = true) -> void:
@@ -28,8 +29,18 @@ func generate(at: Vector2i, generate_food: bool = true, generate_den: bool = tru
 	elif den_location != Vector2.INF:
 		spawn_den(den_location)
 
+	for pos in hole_locations:
+		spawn_hole(pos)
+
 func center() -> Vector2:
 	return global_position * Constants.CHUNK_SIZE * Constants.TILE_SIZE
+
+func spawn_hole(pos: Vector2) -> void:
+	var hole: Node2D = load("res://entities/items/snow_hole.tscn").instantiate()
+	add_child(hole)
+	hole.global_position = pos
+	if not pos in hole_locations:
+		hole_locations.append(pos)
 
 func generate_biome(x: int, y: int, generate_food: bool = true) -> void:
 	var tile_contents = preload("res://scenes/world/tile_contents.tres")

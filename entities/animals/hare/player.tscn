@@ -140,9 +140,7 @@ shape = SubResource("RectangleShape2D_jq2l8")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_mxxvc")
-animation = &"thump"
-frame = 2
-frame_progress = 1.0
+animation = &"walk"
 offset = Vector2(0, -7.13)
 
 [node name="CollectionArea" type="Area2D" parent="."]

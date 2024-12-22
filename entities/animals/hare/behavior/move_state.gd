@@ -29,12 +29,12 @@ func physics_update(delta: float) -> void:
 		tween.set_trans(Tween.TRANS_BACK)
 		get_tree().create_timer(.27).timeout.connect(on_timer_timeout)
 		sprite.animation = "run"
+		if not player.audio.playing:
+			player.audio.stream = player.run_sound
+			player.audio.play()
 		sprite.play()
 		in_motion = true
 
-		if player.audio.stream != player.run_sound:
-			player.audio.stream = player.run_sound
-			player.audio.play()
 	else:
 		player.hearable.set_radius(player.hearable_range * 2)
 		var tween = get_tree().create_tween()
@@ -44,6 +44,8 @@ func physics_update(delta: float) -> void:
 		get_tree().create_timer(.75).timeout.connect(on_timer_timeout)
 		sprite.animation = "walk"
 		sprite.play()
+		player.audio.stream = player.walk_sound
+		player.audio.play()
 		in_motion = true
 
 		if player.audio.stream != player.walk_sound:

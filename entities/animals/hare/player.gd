@@ -9,8 +9,11 @@ var food = null
 var what_area = 2 
 var score = 0
 
-var walk_sound: AudioStream = preload("res://assets/sounds/Walk.mp3")
-var run_sound: AudioStream = preload("res://assets/sounds/Run.mp3")
+var walk_sound: AudioStream = preload("res://assets/sounds/Hair/Hair Walk.mp3")
+var run_sound: AudioStream = preload("res://assets/sounds/Hair/Hair Run.mp3")
+var dig_sound: AudioStream = preload("res://assets/sounds/Hair/Dig.mp3")
+var thump_sound: AudioStream = preload("res://assets/sounds/Hair/Thump.mp3")
+var thump_success_sound: AudioStream = preload("res://assets/sounds/Hair/Thump if founds.mp3")
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()

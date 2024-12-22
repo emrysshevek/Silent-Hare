@@ -34,7 +34,7 @@ func physics_update(delta: float) -> void:
         wait_time = randf_range(1, 2)
         animal.velocity = Vector2.ZERO
     else:
-        animal.velocity = animal.global_position.direction_to(target) * animal.speed
+        animal.velocity = animal.global_position.direction_to(target) * animal.walk_speed
 
 func choose_target() -> Vector2:
     if animal.in_wander_area:

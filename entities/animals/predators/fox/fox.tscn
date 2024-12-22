@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://jurclf7d20g1"]
+[gd_scene load_steps=10 format=3 uid="uid://jurclf7d20g1"]
 
 [ext_resource type="Script" path="res://entities/animals/animal.gd" id="1_v0i27"]
 [ext_resource type="Texture2D" uid="uid://nudsm71dpks6" path="res://assets/sprites/creatures/fox_stand.png" id="2_2p4kx"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://entities/animals/predators/behaviors/home_state.gd" id="5_qeket"]
 [ext_resource type="Script" path="res://entities/animals/predators/behaviors/wander_state.gd" id="6_ieek8"]
 [ext_resource type="Script" path="res://entities/animals/predators/behaviors/chase_state.gd" id="7_fotcy"]
+[ext_resource type="PackedScene" uid="uid://c5r7cpgp1mtmj" path="res://components/sense/sensable_area.tscn" id="8_kpuou"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smwkv"]
 size = Vector2(16, 16)
@@ -14,8 +15,13 @@ size = Vector2(16, 16)
 [node name="Fox" type="CharacterBody2D"]
 collision_layer = 68
 script = ExtResource("1_v0i27")
+walk_speed = null
+run_speed = 45.0
+turn_speed = 15.0
 vision_range = 32.0
 hearing_range = 48.0
+visible_range = null
+hearable_range = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_smwkv")
@@ -43,3 +49,7 @@ script = ExtResource("6_ieek8")
 
 [node name="Chase" type="Node" parent="StateMachine"]
 script = ExtResource("7_fotcy")
+
+[node name="SensableArea" parent="." instance=ExtResource("8_kpuou")]
+collision_layer = 16
+collision_mask = 0

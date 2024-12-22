@@ -10,6 +10,10 @@ var active_chunks: Dictionary = {}
 var prev_chunk: Vector2i = Vector2i.MAX
 var day_duration: float = 300
 var day_remaining: float = 300
+var min_score = 15
+var days_survived = 0
+var game_over = false
+var started = false
 
 var save_root = "res://save_data/world/"
 
@@ -24,6 +28,8 @@ func _ready() -> void:
 	player.died.connect(on_player_died)
 	player.score_changed.connect(on_player_score_changed)
 	player.returned.connect(on_player_returned)
+	player.position = Vector2(100000, 100000)
+
 	Globals.world = self
 	Globals.player = player
 	Globals.camera = get_node("Camera2D")
@@ -37,22 +43,22 @@ func start_day() -> void:
 	player.position = Vector2.ZERO
 	player.show()
 	prev_chunk = Vector2i.MAX
+	started = true
 
 func end_day() -> void:
+	days_survived += 1
 	day_remaining = day_duration
 	ap.play("wipe")
 	player.hide()
 	get_tree().create_timer(1.5).timeout.connect(start_day)
 
 func on_player_returned() -> void:
-	if player.score >= 25:
+	if player.score >= min_score:
 		end_day()
-	else:
-		player.kill()
 
 func on_player_score_changed() -> void:
 	var text = $UILayer/Control/MarginContainer/HBoxContainer/Label
-	text.text = str(player.score) + "/25"
+	text.text = str(player.score) + "/" + str(min_score)
 
 func on_player_died() -> void:
 	var hare: Node2D = load("res://entities/items/dead_hare.tscn").instantiate()
@@ -61,9 +67,15 @@ func on_player_died() -> void:
 	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.DEATH)
 	var tween = create_tween()
 	tween.tween_property(Globals.camera, "zoom", Vector2(1.5, 1.5), 10)
-	tween.finished.connect(on_tween_finished)
-	
-func on_tween_finished() -> void:
+	tween.finished.connect(on_zoom_finished)
+	var end = $UILayer/Control/Death/Label
+	end.text = "You survived " + str(days_survived) + " day(s)"
+	$UILayer/Control.show()
+
+func on_zoom_finished() -> void:
+	game_over = true
+
+func show_menu() -> void:
 	var ap: AnimationPlayer = get_node("AnimationPlayer")
 	ap.play("wipe")
 	ap.animation_finished.connect(quit)
@@ -72,10 +84,19 @@ func quit(name) -> void:
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("dig"):
+		if game_over:
+			show_menu()
+		if not started:
+			$UILayer/Control/Instructions.hide()
+			start_day()
+
 	day_remaining -= delta
 	if day_remaining <= 0:
 		if is_instance_valid(player):
 			player.kill()
+		return
+
 	
 	var tint: ColorRect = $UILayer/Control/NightOverlay
 	tint.color = Color.from_hsv(0, 0, 0, 1 - day_remaining / day_duration)

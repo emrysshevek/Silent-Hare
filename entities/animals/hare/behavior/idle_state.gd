@@ -12,7 +12,7 @@ func physics_update(delta: float) -> void:
 
 	if not player.exhausted and Input.is_action_pressed("hide"):
 		finished.emit(HIDE)
-	if not player.exhausted and Input.is_action_pressed("dig"):
+	if Globals.world.started and not player.exhausted and Input.is_action_pressed("dig"):
 		finished.emit(DIG)
 	if not player.exhausted and Input.is_action_pressed("thump"):
 		finished.emit(THUMP)

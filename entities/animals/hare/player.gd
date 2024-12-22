@@ -22,8 +22,15 @@ var thump_sound: AudioStream = preload("res://assets/sounds/Hair/Thump.mp3")
 var thump_success_sound: AudioStream = preload("res://assets/sounds/Hair/Thump if founds.mp3")
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("dig") and global_position.distance_to(Vector2.ZERO) < 16:
+	if score == 15 and Globals.world.started and Input.is_action_just_pressed("dig") and global_position.distance_to(Vector2.ZERO) < 16:
 		returned.emit()
+
+	var new_pos := global_position
+	if new_pos.distance_to(pos_buffer) >= 16:
+		var footprint: Node2D = footprint_scene.instantiate()
+		Globals.world.add_child(footprint)
+		footprint.global_position = new_pos
+		pos_buffer = new_pos
 
 	var stam_ratio = stamina / max_stamina
 	if stam_ratio == 1:

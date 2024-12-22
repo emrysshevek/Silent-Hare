@@ -1,12 +1,19 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://c22wd543s7g3g"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://c22wd543s7g3g"]
 
 [ext_resource type="Texture2D" uid="uid://ba5htgchtn06l" path="res://assets/environment/tiles/snow_1.png" id="1_1dc1j"]
+[ext_resource type="Texture2D" uid="uid://chpx0ik3htgom" path="res://assets/environment/tiles/snow_2.png" id="2_jlxyj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trgcp"]
 texture = ExtResource("1_1dc1j")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ro3b3"]
+texture = ExtResource("2_jlxyj")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
 [resource]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_trgcp")
+sources/1 = SubResource("TileSetAtlasSource_ro3b3")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://jurclf7d20g1"]
+[gd_scene load_steps=17 format=3 uid="uid://jurclf7d20g1"]
 
 [ext_resource type="Script" path="res://entities/animals/fox/fox.gd" id="1_61s3q"]
 [ext_resource type="Texture2D" uid="uid://nudsm71dpks6" path="res://assets/sprites/creatures/fox/fox_stand.png" id="2_2p4kx"]
+[ext_resource type="PackedScene" uid="uid://bccwoaulky7n1" path="res://entities/items/fox_print.tscn" id="2_eub1d"]
 [ext_resource type="PackedScene" uid="uid://0met6vpi0caw" path="res://components/sense/sense_area.tscn" id="2_rjbsa"]
 [ext_resource type="Texture2D" uid="uid://bdowdyc6buco7" path="res://assets/sprites/creatures/fox/fox_move1.png" id="3_oogr2"]
 [ext_resource type="Script" path="res://components/state_machine/state_machine.gd" id="4_ujj3l"]
@@ -65,6 +66,7 @@ animations = [{
 [node name="Fox" type="CharacterBody2D"]
 collision_layer = 68
 script = ExtResource("1_61s3q")
+footprint_scene = ExtResource("2_eub1d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_smwkv")

@@ -16,6 +16,7 @@ signal animal_exited_hearing(which_animal : Animal)
 @export var hearable_range : float = 16
 
 @export var home: Habitat
+@export var footprint_scene: PackedScene
 
 @onready var vision : SenseArea = get_node_or_null("VisionArea")
 @onready var hearing : SenseArea = get_node_or_null("HearingArea")
@@ -29,6 +30,8 @@ var prey_in_hearing: Animal = null
 var in_base_area := false
 var in_wander_area := false
 var in_chase_area := false
+
+var pos_buffer := Vector2.INF
 
 func _ready() -> void:
 	if vision:
@@ -45,6 +48,13 @@ func _ready() -> void:
 			hearing.animal_exited_sense_range.connect(on_animal_exited_range)
 
 func _physics_process(_delta: float) -> void:
+	var new_pos := global_position
+	if new_pos.distance_to(pos_buffer) >= 16:
+		var footprint: Node2D = footprint_scene.instantiate()
+		Globals.world.add_child(footprint)
+		footprint.global_position = new_pos
+		pos_buffer = new_pos
+
 	move_and_slide()
 
 func on_animal_entered_range(sense: SenseArea, animal: Animal) -> void:

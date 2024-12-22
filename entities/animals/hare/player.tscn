@@ -1,8 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://bq1d1lyxsd14k"]
+[gd_scene load_steps=34 format=3 uid="uid://bq1d1lyxsd14k"]
 
 [ext_resource type="Script" path="res://entities/animals/hare/player.gd" id="1_nqeti"]
 [ext_resource type="Texture2D" uid="uid://cgrkw31r54bf6" path="res://assets/sprites/creatures/hare/hare_stand.png" id="2_0fpsg"]
 [ext_resource type="Texture2D" uid="uid://7sm2s7gdu2wf" path="res://assets/sprites/creatures/hare/hare_dead.png" id="2_a77an"]
+[ext_resource type="PackedScene" uid="uid://cn6171yx844lf" path="res://entities/items/hare_print.tscn" id="2_volox"]
 [ext_resource type="Texture2D" uid="uid://dhtl2vlr7li1h" path="res://assets/sprites/creatures/hare/hare_hide.png" id="3_5p4ew"]
 [ext_resource type="PackedScene" uid="uid://0met6vpi0caw" path="res://components/sense/sense_area.tscn" id="3_jiqeb"]
 [ext_resource type="Script" path="res://components/thump/thump.gd" id="4_bugl1"]
@@ -154,13 +155,9 @@ collision_layer = 64
 collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_nqeti")
-walk_speed = null
-run_speed = null
-turn_speed = null
-vision_range = null
 hearing_range = 128.0
-visible_range = null
 hearable_range = 8.0
+footprint_scene = ExtResource("2_volox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jq2l8")

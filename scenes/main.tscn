@@ -10,7 +10,7 @@
 shader = ExtResource("2_k5t1l")
 shader_parameter/rain_amount = 100.0
 shader_parameter/near_rain_length = 0.042
-shader_parameter/far_rain_length = 0.01
+shader_parameter/far_rain_length = 0.026
 shader_parameter/near_rain_width = 1.0
 shader_parameter/far_rain_width = 1.0
 shader_parameter/near_rain_transparency = 1.0
@@ -130,18 +130,6 @@ tracks/8/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("CanvasLayer2/ColorRect:material:shader_parameter/far_rain_length")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.01]
-}
 
 [sub_resource type="Animation" id="Animation_km8je"]
 resource_name = "menu"
@@ -254,22 +242,9 @@ tracks/8/keys = {
 "update": 0,
 "values": [0.941]
 }
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("CanvasLayer2/ColorRect:material:shader_parameter/far_rain_length")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.01]
-}
 
 [sub_resource type="Animation" id="Animation_m8024"]
 resource_name = "start"
-length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -361,7 +336,7 @@ tracks/7/path = NodePath("CanvasLayer2/ColorRect:color")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 1.2, 2.7),
+"times": PackedFloat32Array(0, 0.266667, 1),
 "transitions": PackedFloat32Array(1, 1, 4.28709),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -402,21 +377,22 @@ expand_mode = 5
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="Button" type="Button" parent="CanvasLayer/Control"]
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -55.0
-offset_top = -103.0
-offset_right = 58.0
-offset_bottom = -48.0
+offset_left = -159.0
+offset_top = -91.0
+offset_right = 163.0
+offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("3_om2pw")
-text = "Start"
+text = "Click to start"
+horizontal_alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
 visible = false
@@ -447,5 +423,3 @@ libraries = {
 "": SubResource("AnimationLibrary_cbcp7")
 }
 autoplay = "menu"
-
-[connection signal="button_up" from="CanvasLayer/Control/Button" to="." method="_on_button_button_up"]

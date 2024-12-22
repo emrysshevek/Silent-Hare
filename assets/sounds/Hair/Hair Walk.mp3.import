@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bl8mu2o3vq5yl"
+path="res://.godot/imported/Hair Walk.mp3-216910d7676ffe7ca50f1b57e73a6de8.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Hair/Hair Walk.mp3"
+dest_files=["res://.godot/imported/Hair Walk.mp3-216910d7676ffe7ca50f1b57e73a6de8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -28,7 +28,7 @@ func on_player_died() -> void:
 	var hare: Node2D = load("res://entities/items/dead_hare.tscn").instantiate()
 	add_child(hare)
 	hare.global_position = player.global_position
-	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.MAIN)
+	BackgroundMusicManager.crossfade_to(BackgroundMusicManager.BackgroundTrack.DEATH)
 	var tween = create_tween()
 	tween.tween_property(Globals.camera, "zoom", Vector2(1.5, 1.5), 10)
 	tween.finished.connect(on_tween_finished)

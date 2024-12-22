@@ -11,6 +11,9 @@ func physics_update(_delta: float) -> void:
 	if animal.global_position.distance_to(animal.home.global_position) > 2:
 		animal.velocity = animal.global_position.direction_to(animal.home.global_position) * animal.walk_speed
 		animal.sprite.animation = "walk"
+		if not animal.audio.playing or animal.audio.stream != animal.walk_sound:
+			animal.audio.stream = animal.walk_sound
+			animal.audio.play()
 	elif animal.visible:
 		animal.hide()
 		animal.velocity = Vector2.ZERO

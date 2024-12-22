@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://hbcamwtjxkq3"
+path="res://.godot/imported/Thump if founds.mp3-e07264ab821890dab8ee470173b3864d.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Hair/Thump if founds.mp3"
+dest_files=["res://.godot/imported/Thump if founds.mp3-e07264ab821890dab8ee470173b3864d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

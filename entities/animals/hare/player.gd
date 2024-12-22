@@ -3,12 +3,14 @@ class_name Player extends Animal
 
 signal died()
 
-@onready var audio: AudioStreamPlayer2D = get_node("AudioStreamPlayer2D")
 @onready var hearable: SenseArea = get_node("HearableArea")
 
 var food = null
 var what_area = 2 
 var score = 0
+
+var walk_sound: AudioStream = preload("res://assets/sounds/Walk.mp3")
+var run_sound: AudioStream = preload("res://assets/sounds/Run.mp3")
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bt8p3p6wa3oar"
+path="res://.godot/imported/Hair Run.mp3-3e468bebb45b8a32679c290d2c27124e.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Hair/Hair Run.mp3"
+dest_files=["res://.godot/imported/Hair Run.mp3-3e468bebb45b8a32679c290d2c27124e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

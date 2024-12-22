@@ -126,7 +126,12 @@ collision_layer = 64
 collision_mask = 9
 motion_mode = 1
 script = ExtResource("1_nqeti")
+walk_speed = null
+run_speed = null
+turn_speed = null
+vision_range = null
 hearing_range = 128.0
+visible_range = null
 hearable_range = 8.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -238,6 +243,9 @@ damping_max = 9.091
 scale_amount_min = 5.0
 scale_amount_max = 20.0
 color_ramp = SubResource("Gradient_jm5xp")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
 
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
 [connection signal="area_exited" from="CollectionArea" to="." method="_on_collection_area_area_exited"]

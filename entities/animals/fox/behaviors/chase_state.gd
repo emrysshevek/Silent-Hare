@@ -17,6 +17,7 @@ var remaining_stamina: float
 var remaining_patience: float
 var remaining_recovery: float
 var state: String
+var killed = false
 
 func enter(_prev_state_path: String, _data := {}):
 	prey = animal.prey_in_vision if animal.prey_in_vision else animal.prey_in_hearing
@@ -31,6 +32,9 @@ func enter(_prev_state_path: String, _data := {}):
 	state = CHASING
 
 func physics_update(delta: float) -> void:
+	if killed:
+		return
+
 	if animal.velocity.x < 0:
 		animal.sprite.flip_h = true
 	elif animal.velocity.x > 0:
@@ -69,6 +73,10 @@ func handle_resting_state(delta: float) -> void:
 
 func handle_chasing_state(delta: float) -> void:
 	animal.sprite.animation = "run"
+	if not animal.audio.playing or animal.audio.stream != animal.run_sound:
+		animal.audio.stream = animal.run_sound
+		animal.audio.play()
+
 	remaining_stamina -= delta
 	if remaining_stamina <= 0:
 		state = RESTING
@@ -77,9 +85,14 @@ func handle_chasing_state(delta: float) -> void:
 	if prey:
 		target = prey.global_position
 
+	if animal.global_position.distance_to(target) < 32 and randf() < .01:
+		animal.bite_sound_player.play()
+
 	if animal.global_position.distance_to(target) < 8:
 		prey.kill()
 		state = RESTING
+		animal.audio.stream = animal.deathbite_sound
+		animal.audio.play()
 		return
 	
 	acceleration += seek()
@@ -94,7 +107,11 @@ func seek():
 	return steer
 
 func handle_searching_state(_delta) -> void:
+	if not animal.audio.playing or animal.audio.stream != animal.walk_sound:
+		animal.audio.stream = animal.walk_sound
+		animal.audio.play()
 	animal.sprite.animation = "walk"
+
 	if search_target == Vector2.INF:
 		search_target = target + Vector2(randf_range(-search_radius, search_radius), randf_range(-search_radius, search_radius))
 

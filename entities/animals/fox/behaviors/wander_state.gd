@@ -38,9 +38,14 @@ func physics_update(delta: float) -> void:
         walking = false
         animal.sprite.animation = "idle"
         animal.sprite.play()
+        animal.audio.stop()
         wait_time = randf_range(1, 2)
         animal.velocity = Vector2.ZERO
     else:
+        if not animal.audio.playing or animal.audio.stream != animal.walk_sound:
+            animal.audio.stream = animal.walk_sound
+            animal.audio.play()
+
         animal.sprite.animation = "walk"
         animal.velocity = animal.global_position.direction_to(target) * animal.walk_speed
 

@@ -18,10 +18,8 @@ signal animal_exited_hearing(which_animal : Animal)
 @onready var vision : SenseArea = get_node_or_null("VisionArea")
 @onready var hearing : SenseArea = get_node_or_null("HearingArea")
 
+@onready var audio: AudioStreamPlayer2D = get_node("AudioStreamPlayer2D")
 @onready var sprite: AnimatedSprite2D = get_node("AnimatedSprite2D")
-
-var walk_sound: AudioStream = preload("res://assets/sounds/Walk.mp3")
-var run_sound: AudioStream = preload("res://assets/sounds/Run.mp3")
 
 var prey_in_vision: Animal = null
 var prey_in_hearing: Animal = null

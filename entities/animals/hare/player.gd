@@ -22,7 +22,8 @@ var thump_sound: AudioStream = preload("res://assets/sounds/Hair/Thump.mp3")
 var thump_success_sound: AudioStream = preload("res://assets/sounds/Hair/Thump if founds.mp3")
 
 func _physics_process(_delta: float) -> void:
-	if score == 15 and Globals.world.started and Input.is_action_just_pressed("dig") and global_position.distance_to(Vector2.ZERO) < 16:
+	if score >= 10 and Globals.world.started and Input.is_action_just_pressed("dig") and global_position.distance_to(Vector2.ZERO) < 16:
+		print("Returned home")
 		returned.emit()
 
 	var new_pos := global_position

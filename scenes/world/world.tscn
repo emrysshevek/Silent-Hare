@@ -539,7 +539,7 @@ z_index = -1
 
 [node name="Player" parent="." instance=ExtResource("4_dth15")]
 y_sort_enabled = true
-hearable_range = null
+hearable_range = 16.0
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
